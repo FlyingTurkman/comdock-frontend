@@ -119,7 +119,7 @@ export async function getServerSideProps({params}) {
 
         const relationalResponse = await fetcher(
             `slugify/slugs/company/${pageslug}`,
-            `fields=company_name&populate[networkCompanies][populate][connected_company][fields][0]=hr_number,company_name&populate[networkPersons][populate][connected_person][fields][0]=id,first_name,sir_name&populate[networkCompanies][populate][hr_public][fields][0]=id&populate[networkPersons][populate][hr_public][fields][0]=id&populate[docs][populate][document][fields][0]=url&populate[docs][populate][certificate][fields][0]=url&populate[docs][populate][user][fields][0]=name`
+            `fields=company_name&populate[networkCompanies][populate][connected_company][fields][0]=hr_number,company_name&populate[networkPersons][populate][connected_person][fields][0]=id,first_name,sir_name&populate[networkCompanies][populate][hr_public][fields][0]=id&populate[networkPersons][populate][hr_public][fields][0]=id&populate[docs][populate][document][fields][0]=url&populate[docs][populate][cdl_tasks][populate][signer][fields][0]=name&populate[docs][populate][cdl_tasks][populate][certificate_doc][fields][0]=url`
         )
 
         const corp_object = await markdownToHtml(contentResponse.data.attributes.corp_object);

@@ -13,6 +13,7 @@ export default function NetworkList({networkInfo}) {
         networkInfo.attributes.activeNetworkPersons.length
       ) : 3;
 
+
     return (
         <>
         <div className={`${style.networkItem} ${style.headItem} rounded-lg`}>

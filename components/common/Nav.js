@@ -1,3 +1,4 @@
+import { unsetToken, useFetchUser } from '@/helpers/auth'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -13,7 +14,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Nav({nopageHeader}) {
+export default function Nav({nopageHeader, backend}) {
   const router = useRouter();
   const updatedNavigation = navigation.map((item) => ({
     ...item,
@@ -21,6 +22,10 @@ export default function Nav({nopageHeader}) {
     (router.pathname.startsWith("/companies") && item.href === "/companies") ||
     (router.pathname.startsWith("/persons") && item.href === "/persons")
   }));
+  const logout = () => {
+    unsetToken();
+  };
+  const {user} = useFetchUser()
   return (
     <Disclosure as="nav" className={`bg-primary-600 ${nopageHeader ? 'rounded-b-lg' : ''}`}>
       {({ open }) => (
@@ -40,14 +45,22 @@ export default function Nav({nopageHeader}) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <Link href="/">
-                    <img className="block h-8 w-auto" src="/icons/icon-light.svg" alt="COMDOCK Index" />
-                  </Link>
+                  
+                  {backend ? (
+                    <Link className="flex" href="/legal">
+                      <img className="block h-8 w-auto" src="/icons/icon-light.svg" alt="COMDOCK Legal" />
+                      <span className="ml-6 my-auto text-xl font-medium text-zinc-100">COMDOCK Legal</span>
+                    </Link>
+                  ) : (
+                    <Link href="/">
+                      <img className="block h-8 w-auto" src="/icons/icon-light.svg" alt="COMDOCK Index" />
+                    </Link>
+                  )}
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {updatedNavigation.map((item) => (
-                      <a
+                    {!backend && updatedNavigation.map((item) => (
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -57,9 +70,11 @@ export default function Nav({nopageHeader}) {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
+                </div>
+                <div className="hidden sm:ml-auto sm:block">
                 </div>
               </div>
             </div>

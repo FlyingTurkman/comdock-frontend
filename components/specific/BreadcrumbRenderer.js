@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 
-function BreadcrumbRenderer({current}) {
+function BreadcrumbRenderer({current, backend}) {
   const router = useRouter();
   const [breadcrumbs, setBreadcrumbs] = useState();
 
@@ -38,7 +38,11 @@ function BreadcrumbRenderer({current}) {
 
   return (
       <Breadcrumb>
-        <BreadcrumbItem href="/">Home</BreadcrumbItem>
+        {backend ? (
+          <BreadcrumbItem href="/legal">COMDOCK Legal</BreadcrumbItem>
+        ) : (
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+        )}
         {breadcrumbs &&
           breadcrumbs.map((breadcrumb) => (
             <BreadcrumbItem key={breadcrumb.href} href={breadcrumb.href}>

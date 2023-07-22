@@ -1,0 +1,72 @@
+.form-select, 
+.form-control, .form-control-lg, .form-control-sm
+    &:focus, &:focus-visible
+        @apply shadow shadow-primary/50 outline-none
+        @apply border-primary/50
+
+@mixin form-control-base
+    width: 100%
+    font-weight: 400
+    line-height: 1.5
+    border: 1px solid #dee2e6
+    @apply shadow-sm placeholder:text-slate-400
+    @apply bg-slate-100
+        
+    
+.form-control
+    @include form-control-base
+    padding: 0.5rem 0.75rem
+    font-size: 1rem
+    @apply rounded-md
+
+.form-control-lg
+    @include form-control-base
+    min-height: calc(1.5em + 1rem + 2px)
+    padding: 0.75rem 1rem
+    font-size: 1.25rem
+    @apply rounded-lg
+
+.form-control-sm
+    @include form-control-base
+    padding: 0.25rem 0.5rem
+    min-height: calc(1.5em + .5rem + 2px)
+    font-size: 0.875rem
+    @apply rounded
+
+.form-floating
+    position: relative
+
+    
+    .form-control, .form-control-lg
+        padding-top: 1rem
+        padding-bottom: 1rem
+
+        &:focus 
+            padding-top: 1.2rem
+            padding-bottom: 0.85rem
+
+            + label
+                @apply text-primary/80
+
+    label
+        @apply absolute duration-300 transform -translate-y-4 scale-75 z-10 origin-[0]
+        top: 1rem
+        color: rgb(148 163 184)
+
+        &:hover
+            cursor: text
+    
+    .form-control + label
+        font-size: 1rem
+        left: 0.75rem
+
+    .form-control-lg + label
+        left: 1rem
+        font-size: 1.25rem
+
+.file-input-wrapper
+    @apply rounded-lg border border-dashed border-gray-900/25 bg-slate-100
+
+.file-input-label
+    @apply relative cursor-pointer rounded-md
+    @apply font-semibold text-primary hover:text-primary-700

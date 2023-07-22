@@ -1,0 +1,42 @@
+/** Button Sizes **/
+@mixin btn-base
+    font-weight: 600
+    line-height: 1.5
+    text-align: center
+    @apply shadow
+    border: 1px solid transparent
+
+.btn
+    @include btn-base
+    @apply rounded-md
+    padding: 0.5rem 0.75rem
+    font-size: 1rem
+
+.btn-sm
+    @include btn-base
+    @apply rounded
+    padding: 0.25rem 0.5rem
+    font-size: 0.875rem
+
+.btn-lg
+    @include btn-base
+    @apply rounded-lg
+    padding: 0.75rem 1rem
+    font-size: 1.25rem
+
+.btn-primary
+    @apply bg-primary text-zinc-200
+
+    &:hover, &:focus
+        @apply bg-primary-700 text-zinc-200
+    
+    &:active
+        @apply bg-primary-600 text-zinc-200
+    
+    &:focus
+        @apply shadow-lg
+
+.btn-nobtn
+    font-size: 1rem
+    font-weight: 600
+    @apply text-gray-900
