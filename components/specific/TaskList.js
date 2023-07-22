@@ -59,7 +59,6 @@ export default function TaskList({user, allTasks}) {
 
     function openModal() {
         setIsOpen(true)
-        // Hier ggf. Daten mit übergeben
         
     }
     return(
