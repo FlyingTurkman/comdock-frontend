@@ -1,7 +1,7 @@
-import Layout from "@/components/common/Layout";
+import Layout from "@/components/basics/Layout";
 import { ConnectionFailOnSite } from "@/components/errors/ConnectionFailOnSite";
 import BlankPage from "@/components/pagetypes/BlankPage";
-import CompaniesList from "@/components/specific/CompaniesList";
+import CompaniesList from "@/components/listpages/CompaniesList";
 
 import { fetcher } from "@/helpers/helpScripts";
 import { useEffect} from "react";
