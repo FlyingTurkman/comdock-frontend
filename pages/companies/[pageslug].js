@@ -1,11 +1,11 @@
 import style from '@/layout/ContentLists.module.sass';
-import Layout from "@/components/common/Layout"
+import Layout from "@/components/basics/Layout"
 import DetailPage from "@/components/pagetypes/DetailPage";
-import NetworkList from "@/components/specific/NetworkList";
+import NetworkList from "@/components/detailPages/NetworkList";
 import { fetcher, markdownToHtml } from "@/helpers/helpScripts";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PablicationSection from '@/components/specific/PublicationSection';
+import PablicationSection from '@/components/detailPages/PublicationSection';
 import { ConnectionFailFullSite } from '@/components/errors/ConnectionFailFullSite';
 import { useEffect } from 'react';
 

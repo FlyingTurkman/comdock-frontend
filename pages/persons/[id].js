@@ -1,4 +1,4 @@
-import Layout from "@/components/common/Layout";
+import Layout from "@/components/basics/Layout";
 import DetailPage from "@/components/pagetypes/DetailPage";
 import Link from "next/link";
 import style from '@/layout/ContentLists.module.sass';
