@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import PageHeader from "../specific/PageHeader"
+import PageHeader from "../basics/PageHeader"
 import { faBuilding, faUser } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"

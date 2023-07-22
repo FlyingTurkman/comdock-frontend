@@ -1,4 +1,4 @@
-import PageHeader from "../specific/PageHeader";
+import PageHeader from "../basics/PageHeader";
 
 export default function BlankPage({title, children, noBreadcrumb}) {
     return (

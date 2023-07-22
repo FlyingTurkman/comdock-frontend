@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Tab } from '@headlessui/react'
 import { useRef } from 'react';
 import style from '@/layout/TabNavs.module.sass';
-import HRList from './HRList';
+import HRList from '../listpages/HRList';
 import DocList from './DocList';
 
 export default function PablicationSection({hr, docs}) {

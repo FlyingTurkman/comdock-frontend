@@ -1,7 +1,7 @@
-import Layout from "@/components/common/Layout";
+import Layout from "@/components/basics/Layout";
 import { ConnectionFailFullSite } from "@/components/errors/ConnectionFailFullSite";
-import DocList from "@/components/specific/DocList";
-import PageHeader from "@/components/specific/PageHeader";
+import DocList from "@/components/detailPages/DocList";
+import PageHeader from "@/components/basics/PageHeader";
 import { dynamicIconHandler, fetcher, germanDate, markdownToHtml } from "@/helpers/helpScripts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";

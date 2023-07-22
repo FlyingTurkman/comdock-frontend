@@ -1,5 +1,5 @@
 import { useFetchUser } from "@/helpers/auth";
-import BreadcrumbRenderer from "../specific/BreadcrumbRenderer";
+import BreadcrumbRenderer from "../basics/BreadcrumbRenderer";
 import Router from "next/router";
 
 export default function BackendPage () {

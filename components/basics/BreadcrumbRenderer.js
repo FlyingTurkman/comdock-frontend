@@ -1,5 +1,5 @@
-import Breadcrumb from "@/components/specific/Breadcrumb";
-import BreadcrumbItem from "@/components/specific/BreadcrumbItem";
+import Breadcrumb from "@/components/basics/Breadcrumb";
+import BreadcrumbItem from "@/components/basics/BreadcrumbItem";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
