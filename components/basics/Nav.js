@@ -3,6 +3,7 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import style from '@/layout/Nav.module.sass'
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
@@ -34,7 +35,7 @@ export default function Nav({nopageHeader, backend}) {
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 nav-theme">
+                <Disclosure.Button className={`inline-flex items-center justify-center rounded-md p-2 ${style.navTheme}`}>
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -64,7 +65,7 @@ export default function Nav({nopageHeader, backend}) {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'nav-item-active' : 'nav-item',
+                          item.current ? style.navItemActive : style.navItem,
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
@@ -88,7 +89,7 @@ export default function Nav({nopageHeader, backend}) {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current ? 'nav-item-active' : 'nav-item',
+                    item.current ? style.navItemActive : style.navItem,
                     'block rounded-md px-3 py-2 text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}

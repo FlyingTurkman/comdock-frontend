@@ -2,45 +2,23 @@
 @tailwind components
 @tailwind utilities
 
-@import theme
 @import typography
 @import forms
 @import buttons
 
 body
-    @apply bg-zinc-100 px-10
+    @apply bg-zinc-100 sm:px-10
 
 
 .wrapper, .nav-wrapper, .backend-wrapper
     @apply mx-auto max-w-4xl px-8
 
+.wrapper
+    @apply py-8
+
 .pageHeader
     @apply bg-primary text-zinc-100
     @apply rounded-b-lg shadow py-6
-
-.wrapper
-    @apply p-8
-
-.tableOfContent
-    @apply py-8
-    @apply absolute top-0 left-0 h-full
-    
-    .sectionsList
-        @apply sticky z-10 top-1/2
-
-        .toc-item, .toc-text
-            padding: 0.25rem 1rem 0.2rem 2.5rem
-            position: relative
-            left: -2.5rem
-
-        .toc-item
-            @apply font-light text-sm text-gray-400
-
-            &:hover, &.active
-                @apply text-cyan-600 bg-cyan-300/25
-        
-.toc-text
-    @apply mt-4 font-light text-xs text-slate-400
 
 .detailSection
     @apply mb-8

@@ -4,6 +4,7 @@ import { faBuilding, faUser } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { Now } from "@/helpers/helpScripts"
+import style from '@/layout/DetailPage.module.sass'
 
 
 export default function DetailPage({title, children, contentType}) {
@@ -48,14 +49,14 @@ export default function DetailPage({title, children, contentType}) {
                 </div>
             </PageHeader>
             <div className="w-full relative">
-                <aside className="tableOfContent lg:block hidden">
-                    <div className="sectionsList">
+                <aside className={`${style.tableOfContent} lg:block hidden`}>
+                    <div className={style.sectionsList}>
                         <ul>
                             {React.Children.toArray(children).map(child => {
                                 if (child.type == 'section' && child.props.className === 'detailSection') {
                                     return (
                                         <li key={child.props.id}>
-                                            <Link href={`#${child.props.id}`} className={`toc-item rounded-r ${activeLink === child.props.id ? 'active' : ''}`}>
+                                            <Link href={`#${child.props.id}`} className={`${style.tocItem} rounded-r ${activeLink === child.props.id ? 'active' : ''}`}>
                                                 {Array.isArray(child.props.children) ? child.props.children[0].props.children : child.props.children.props.children}
                                             </Link>
                                         </li>
@@ -63,7 +64,7 @@ export default function DetailPage({title, children, contentType}) {
                                 };
                             })}
                         </ul>
-                        <p className="toc-text">Abruf vom <Now /></p>
+                        <p className={style.tocText}>Abruf vom <Now /></p>
                     </div>
                 </aside>
                 <article className="wrapper">
