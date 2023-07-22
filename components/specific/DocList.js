@@ -49,12 +49,12 @@ export default function DocList({content}) {
                                                     <div className="flex items-center justify-between pb-3">
                                                         <p>
                                                             {certificate.signer && certificate.signed_date ? (
-                                                                certificate.task === 'Unterschrift mit Dokument' || certificate.task === 'Unterschrift ohne Dokument' ? (
+                                                                certificate.task === 'Digitale Unterschrift mit Dokument' || certificate.task === 'Digitale Unterschrift ohne Dokument' ? (
                                                                     `${certificate.signer.data.attributes.name} hat dieses Dokument am ${germanDate(certificate.signed_date)} digital signiert.`
-                                                                ) : certificate.task === 'Beglaubigung mit Dokument' || certificate.task === 'Beglaubigung ohne Dokument' ? (
+                                                                ) : certificate.task === 'Digitale Beglaubigung mit Dokument' || certificate.task === 'Digitale Beglaubigung ohne Dokument' ? (
                                                                     `${certificate.signer.data.attributes.name} hat dieses Dokument am ${germanDate(certificate.signed_date)} digital beglaubigt.`
-                                                                ) : (`Einige Zertifizierungen zu diesem Dokument stehen noch aus.`)
-                                                                ) : (`Einige Zertifizierungen zu diesem Dokument stehen noch aus.`)}
+                                                                ) : (`Einige Aufgaben zu diesem Dokument stehen noch aus.`)
+                                                                ) : (`Einige Aufgaben zu diesem Dokument stehen noch aus.`)}
                                                         </p>
                                                         <div className="flex-initial">
                                                         {certificate.certificate_doc.data ? (
