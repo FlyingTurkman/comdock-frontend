@@ -4,6 +4,7 @@ import { faBuilding, faInfo, faInfoCircle, faUser } from '@fortawesome/free-soli
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useState } from 'react';
+import Alert from '../basics/Alert';
 
 
 export default function NetworkList({networkInfo}) {
@@ -55,6 +56,27 @@ export default function NetworkList({networkInfo}) {
                             </div>
                     )
                 })}
+                {
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">
+                                    Es gibt nur ehemals verbundene Unternehmen.
+                                </p>
+                            </Alert>
+                            
+                        </div>
+                    ) : ''
+                }
+                {
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Unternehmen.</p>
+                            </Alert>
+                        </div>
+                    ) : ''
+                }
                 {ShowFullNetwork && networkInfo.attributes.deletedNetworkCompanies.map((company) => {
                     return (
                         <Link href={'/companies/'+company.connected_company.data.attributes.hr_number} key={company.connected_company.data.attributes.hr_number}>
@@ -110,6 +132,27 @@ export default function NetworkList({networkInfo}) {
                     </Link>
                     )
                 })}
+                {
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">
+                                    Es gibt nur ehemals verbundene Personen.
+                                </p>
+                            </Alert>
+                            
+                        </div>
+                    ) : ''
+                }
+                {
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Personen.</p>
+                            </Alert>
+                        </div>
+                    ) : ''
+                }
                 {ShowFullNetwork && networkInfo.attributes.deletedNetworkPersons.map((person) => {
                     return (
                         <Link href={'/persons/'+person.connected_person.data.id} key={person.connected_person.data.id}>
@@ -143,7 +186,7 @@ export default function NetworkList({networkInfo}) {
         {
             (
                 networkInfo.attributes.activeNetworkCompanies.length > numToShow || networkInfo.attributes.activeNetworkPersons.length > numToShow ||
-                networkInfo.attributes.deletedNetworkCompanies.length || networkInfo.attributes.deletedNetworkPersons.length
+                networkInfo.attributes.deletedNetworkCompanies.length > 0 || networkInfo.attributes.deletedNetworkPersons.length > 0
             ) && (
                 <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
                     {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
@@ -153,9 +196,3 @@ export default function NetworkList({networkInfo}) {
         </>
     )
 }
-
-/* TODO #35
-    - Wenn es überhaupt keine Companies und Personen gibt, soll das ganze Netzwerk verschwinden / Das wird in pageslug bereits geprüft
-    - Wenn es keine aktiven aber gelöschte Personen oder Firmen gibt, soll es einen KLEINEN Alert und einen Toggle Button geben
-    - Wenn es überhaupt keine Firmen aber Personen oder anders herum gibt, soll es einen Alert geben
-*/
