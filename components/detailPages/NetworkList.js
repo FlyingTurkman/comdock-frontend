@@ -140,14 +140,22 @@ export default function NetworkList({networkInfo}) {
                 })}
             </div>
         </div>
-        {(
-            networkInfo.attributes.activeNetworkCompanies.length > numToShow || networkInfo.attributes.activeNetworkPersons.length,
-            networkInfo.attributes.deletedNetworkCompanies.length > numToShow || networkInfo.attributes.deletedNetworkPersons.length
-        ) && (
-            <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
-                {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
-            </button>
-        )}
-        </>  
+        {
+            (
+                networkInfo.attributes.activeNetworkCompanies.length > numToShow || networkInfo.attributes.activeNetworkPersons.length > numToShow ||
+                networkInfo.attributes.deletedNetworkCompanies.length || networkInfo.attributes.deletedNetworkPersons.length
+            ) && (
+                <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
+                    {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
+                </button>
+            )
+        }
+        </>
     )
 }
+
+/* TODO #35
+    - Wenn es überhaupt keine Companies und Personen gibt, soll das ganze Netzwerk verschwinden / Das wird in pageslug bereits geprüft
+    - Wenn es keine aktiven aber gelöschte Personen oder Firmen gibt, soll es einen KLEINEN Alert und einen Toggle Button geben
+    - Wenn es überhaupt keine Firmen aber Personen oder anders herum gibt, soll es einen Alert geben
+*/
