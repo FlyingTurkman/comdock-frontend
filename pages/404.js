@@ -1,15 +1,13 @@
+import AlertIcon from "@/components/basics/AlertIcon"
 import Head from "next/head"
 import Link from "next/link"
-import AlertIcon from "../basics/AlertIcon"
 
-
-
-export function ConnectionFailFullSite() {
+export default function NotFound() {
     return(
         <>
             <Head>
                 <link rel="shortcut icon" href="/icons/icon-primary.svg" />
-                <title>COMDOCK Index</title>
+                <title>Seite nicht gefunden | COMDOCK Index</title>
             </Head>
 
             <main className="wrapper flex flex-col items-center h-screen">
@@ -19,13 +17,16 @@ export function ConnectionFailFullSite() {
                 </Link>
 
                 <div className="grow text-center justify-center items-center flex flex-col">
-                    <AlertIcon theme="warning" weightClass='w-12' />
+                    <AlertIcon theme="primary" weightClass='w-12' />
                     <div className="mt-10">
-                    <h1>Wir haben unsere Daten verloren</h1>
-                    <p>
-                        Die Verbindung zu unserer Datenbank kann nicht hergestellt werden.<br />
-                        Diese Seite wird nun alle 2 Minuten neu geladen. Wenn die Daten nicht bald angezeigt werden, versuche es später erneut.
-                    </p>
+                        <h4 class="text-primary">404</h4>
+                        <h1 class="mt-4">Seite nicht gefunden</h1>
+                        <p class="mt-6">Leider konnten wir die gewünschte Seite nicht finden.</p>
+                        <div className="mt-10">
+                            <Link href="/">
+                                <button className="btn btn-primary">Zurück zur Startseite</button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </main>

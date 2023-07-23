@@ -22,6 +22,10 @@ module.exports = {
           900: '#00313B',
           950: '#002A33'
         },
+        info: '#0ea5e9',
+        success: '#4CB050',
+        error: '#D32F2E',
+        warning: '#FF9700'
       }
     },
   },
