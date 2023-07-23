@@ -1,3 +1,7 @@
+import AlertIcon from "@/components/basics/AlertIcon"
+import Head from "next/head"
+import Link from "next/link"
+
 function Error({ statusCode }) {
     return(
         <>
@@ -15,7 +19,7 @@ function Error({ statusCode }) {
                     <AlertIcon theme="error" weightClass='w-12' />
                     <div className="mt-10">
                         {statusCode ? (
-                            <h4 className="text-primary">{statusCode}</h4>
+                            <h4 className="text-error">{statusCode}</h4>
                         ) : ''}
                         <h1 className="mt-4">Es ist ein Fehler aufgetreten.</h1>
                         <div className="mt-10">
