@@ -97,12 +97,14 @@ const CompanyDetail = ({item, networkInfo, corp_object}) => {
                         </div>
                     </section>
                 ) : '' }
+                {item.attributes.hr_pubs.data.length > 0 || networkInfo.attributes.docs.data.length > 0 ? (
                 <section id="publications" className="detailSection">
                     <h4 className="sectionLabel">Veröffentlichungen</h4>
                     <div className="my-2">
                         <PablicationSection hr={item.attributes.hr_pubs} docs={networkInfo.attributes.docs} />
                     </div>
                 </section>
+                ) : ''}
             </DetailPage>
         </Layout>
     )

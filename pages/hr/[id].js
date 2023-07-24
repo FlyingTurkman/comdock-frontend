@@ -27,7 +27,12 @@ const HRDetail = ({item, pub_text}) => {
                     <div className="flex-none w-6 mr-6">
                         <FontAwesomeIcon icon={dynamicIconHandler(item.attributes.pub_icon)} />
                     </div>
-                    <span>{item.attributes.pub_title+': '+item.attributes.pub_summary}</span>
+                    <span>
+                        {item.attributes.pub_summary != null ? 
+                        (item.attributes.pub_title+': '+item.attributes.pub_summary) :
+                        (item.attributes.pub_title)
+                        }
+                    </span>
                 </div>
             </PageHeader>
             <article className="wrapper text-mono">
@@ -37,12 +42,14 @@ const HRDetail = ({item, pub_text}) => {
                 </div>
                 <div className={`my-2 markdownBox text-mono`} dangerouslySetInnerHTML={{ __html: pub_text }}></div>
             </article>
-            <section id="publications" className="wrapper">
-                <h4 className="sectionLabel">Dokumente zu dieser Eintragung</h4>
-                <div className="my-2">
-                    <DocList content={item.attributes.docs} />
-                </div>
-            </section>
+            {item.attributes.docs.data.length > 0 ? (
+                <section id="publications" className="wrapper">
+                    <h4 className="sectionLabel">Dokumente zu dieser Eintragung</h4>
+                    <div className="my-2">
+                        <DocList content={item.attributes.docs} />
+                    </div>
+                </section>
+            ) : ''}
         </Layout>
     )
 }

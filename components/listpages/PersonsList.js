@@ -2,6 +2,7 @@ import style from '@/layout/ContentLists.module.sass';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import Alert from '../basics/Alert';
 
 const PersonsList = ({content}) => {
     return (
@@ -23,6 +24,11 @@ const PersonsList = ({content}) => {
                     </Link>
                 );
             })}
+            {content.data.length == 0 ? (
+                <Alert theme='info'>
+                    <p>Es gibt keine Einträge, die in dieser Ansicht gezeigt werden könnten.</p>
+                </Alert>
+            ) : ''}
         </div>
     );
 }
