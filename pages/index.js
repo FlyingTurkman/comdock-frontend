@@ -30,11 +30,12 @@ const Index = ({companies, persons}) => {
       <div className="mx-auto max-w-4xl">
         <h3 className="text-primary mb-3">Herzlich Willkommen bei COMDOCK</h3>
         <p className="text-justify leading-relaxed">
-          Im Portal COMDOCK können Sie die Unternehmensdaten, 
-          das Unternehmensnetzwerk und alle offiziellen Bekanntmachungen der Gesellschaften der NCS Group einsehen.
-          Die NCS Group veröffentlich über diese Schniitstelle alle nötigen Informationen im Unternehmensregister,
-          im Register des Deutschen Patent- und Markenamtes und in anderen Gesellschaftsregistern.<br/>
-          Über die Schnittstelle COMDOCK Legal können Notare und zeichnungsberechtigte Personen die Registerdaten direkt im Portal digital unterzeichnen und beglaubigen.
+          COMDOCK ist eine Plattform, die Ihnen Zugang zu Informationen über Unternehmen der NCS Group bietet. 
+          Sie können Unternehmensdaten, das Unternehmensnetzwerk und alle offiziellen Bekanntmachungen einsehen. 
+        </p>
+        <p className="text-justify leading-relaxed">
+          Die NCS Group veröffentlicht und übermittelt alle eigenen Unternehmensdaten mit COMDOCK an das Unternehmensregister, das DPMA-Register und viele weitere Registeportale. 
+          Über COMDOCK Legal haben Notare und Bevollmächtigte die Möglichkeit, Dokumente und Eintragungen digital zu signieren und zu beglaubigen.
         </p>
       </div>
       </div>
