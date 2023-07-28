@@ -1,22 +1,90 @@
 import Layout from "@/components/basics/Layout";
-import Alert from "@/components/basics/Alert";
+import { fetcher, markdownToHtml } from "@/helpers/helpScripts";
+import { useEffect } from "react";
+import { ConnectionFailFullSite } from "@/components/errors/ConnectionFailFullSite";
+import CompaniesList from "@/components/listpages/CompaniesList";
+import PersonsList from "@/components/listpages/PersonsList";
+import Link from "next/link";
 
-export default function Index() {
-  return (
+
+
+
+const Index = ({companies, persons, texts, jumbotron}) => {
+  useEffect(() => {
+    if (!companies || !persons || !texts) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 120000);
+    }
+  }, [companies]);
+
+  if (!companies || !persons || !texts) {
+    return(<ConnectionFailFullSite />)
+  }
+
+  return(
     <Layout nopageHeader>
-      <h1>Index Page</h1>
-      <Alert title="Hallo">
-        <p>Das ist eine Info</p>
-      </Alert>
-      <Alert title="Wie schön" theme="success">
-        <p>Du hast es geschafft</p>
-      </Alert>
-      <Alert theme="warning" title="Achtung">
-        <p>Das was hier passiert sieht irgendwie falsch aus</p>
-      </Alert>
-      <Alert title="Oh nein" theme="error">
-        <p>So geht es nicht!</p>
-      </Alert>
+      <div className="bg-white rounded-lg p-4 mt-8 shadow">
+      <div className="mx-auto max-w-4xl">
+        <h3 className="text-primary mb-3">{texts.attributes.headline}</h3>
+        <div className="leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: jumbotron }}></div>
+      </div>
+      </div>
+      <div className="md:flex md:flex-row md:gap-4 index-wrapper">
+        <section className="flex-grow">
+          <div className="h3 text-primary">Firmen</div>
+          <CompaniesList content={companies} />
+          <div className="w-full text-center">
+            <Link href="companies">
+              <button className="btn btn-primary">Mehr Firmen</button>
+            </Link>
+          </div>
+        </section>
+        <section className="flex-grow">
+          <div className="h3 text-primary">Personen</div>
+          <PersonsList content={persons} />
+          <div className="w-full text-center">
+            <Link href="persons">
+              <button className="btn btn-primary">Mehr Personen</button>
+            </Link>
+          </div>
+        </section>
+      </div>
     </Layout>
-  );
+  )
+}
+
+export default Index
+
+export async function getStaticProps() {
+  try {
+    const companyResponse = await fetcher(
+      'companies', 
+      'fields[0]=company_name&fields[1]=hr_court&fields[2]=hr_dept&fields[3]=hr_number&populate=main_branch&pagination[pageSize]=5'
+    )
+    const personResponse = await fetcher(
+      `persons`,
+      'fields[0]=first_name&fields[1]=sir_name&fields[2]=city&pagination[pageSize]=5'
+    )
+
+    const contentResponse = await fetcher('indexcontent')
+    const jumbotron = await markdownToHtml(contentResponse.data.attributes.jumbotron);
+
+    return {
+      props: {
+        companies: companyResponse,
+        persons: personResponse,
+        texts: contentResponse.data,
+        jumbotron
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        companies: null,
+        persons: null,
+        contentResponse: null
+      },
+    };
+  }
 }
