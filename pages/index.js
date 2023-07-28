@@ -1,26 +1,24 @@
 import Layout from "@/components/basics/Layout";
-import Alert from "@/components/basics/Alert";
-import { fetcher } from "@/helpers/helpScripts";
+import { fetcher, markdownToHtml } from "@/helpers/helpScripts";
 import { useEffect } from "react";
 import { ConnectionFailFullSite } from "@/components/errors/ConnectionFailFullSite";
 import CompaniesList from "@/components/listpages/CompaniesList";
 import PersonsList from "@/components/listpages/PersonsList";
 import Link from "next/link";
-import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 
 
 
 
-const Index = ({companies, persons}) => {
+const Index = ({companies, persons, texts, jumbotron}) => {
   useEffect(() => {
-    if (!companies || !persons) {
+    if (!companies || !persons || !texts) {
       setTimeout(() => {
         window.location.reload();
       }, 120000);
     }
-  }, [companies, persons]);
+  }, [companies]);
 
-  if (!companies || !persons) {
+  if (!companies || !persons || !texts) {
     return(<ConnectionFailFullSite />)
   }
 
@@ -28,15 +26,8 @@ const Index = ({companies, persons}) => {
     <Layout nopageHeader>
       <div className="bg-white rounded-lg p-4 mt-8">
       <div className="mx-auto max-w-4xl">
-        <h3 className="text-primary mb-3">Herzlich Willkommen bei COMDOCK</h3>
-        <p className="text-justify leading-relaxed">
-          COMDOCK ist eine Plattform, die Ihnen Zugang zu Informationen über Unternehmen der NCS Group bietet. 
-          Sie können Unternehmensdaten, das Unternehmensnetzwerk und alle offiziellen Bekanntmachungen einsehen. 
-        </p>
-        <p className="text-justify leading-relaxed">
-          Die NCS Group veröffentlicht und übermittelt alle eigenen Unternehmensdaten mit COMDOCK an das Unternehmensregister, das DPMA-Register und viele weitere Registeportale. 
-          Über COMDOCK Legal haben Notare und Bevollmächtigte die Möglichkeit, Dokumente und Eintragungen digital zu signieren und zu beglaubigen.
-        </p>
+        <h3 className="text-primary mb-3">{texts.attributes.headline}</h3>
+        <div className="leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: jumbotron }}></div>
       </div>
       </div>
       <div className="md:flex md:flex-row md:gap-4 index-wrapper">
@@ -75,17 +66,24 @@ export async function getStaticProps() {
       `persons`,
       'fields[0]=first_name&fields[1]=sir_name&fields[2]=city&pagination[pageSize]=5'
     )
+
+    const contentResponse = await fetcher('indexcontent')
+    const jumbotron = await markdownToHtml(contentResponse.data.attributes.jumbotron);
+
     return {
       props: {
         companies: companyResponse,
-        persons: personResponse
+        persons: personResponse,
+        texts: contentResponse.data,
+        jumbotron
       },
     };
   } catch (error) {
     return {
       props: {
         companies: null,
-        persons: null
+        persons: null,
+        contentResponse: null
       },
     };
   }
