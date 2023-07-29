@@ -30,53 +30,34 @@ export default function NetworkList({networkInfo}) {
         <div className="grid grid-cols-2 gap-4">
             <div id="networkCompanies">
                 <h6 className={`${style.networkTitle} rounded`}>Verbundene Unternehmen</h6>
+                {/* List with Content */}
                 {networkInfo.attributes.activeNetworkCompanies.slice(0, numToShow).map((company) => {
                     return (
                         <div className={`${style.networkItem} rounded-lg`}>
-                                <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={faBuilding} />
-                                    </div>
+                            <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                                <div className={style.faIcon}>
+                                    <FontAwesomeIcon icon={faBuilding} />
                                 </div>
-                                <div className={`${style.listContent} flex-auto`}>
-                                <Link href={'/companies/'+company.connected_company.data.attributes.hr_number} key={company.connected_company.data.attributes.hr_number}>
-                                    <p className={`${style.summary}`}>{company.connected_company.data.attributes.company_name}</p>
-                                    <p className={`${style.meta}`}>{company.connection_type}</p>
-                                </Link>
-                                </div>
-                                {company.hr_public.data?.id ? (
-                                    <div className={`${style.hrLink} flex-none`}>
-                                        <Link href={'/hr/'+company.hr_public.data.id}>
-                                            <div className='w-5'>
-                                                <FontAwesomeIcon icon={faInfoCircle} />
-                                            </div>
-                                        </Link>
-                                    </div>
-                                ) : null}
                             </div>
+                            <div className={`${style.listContent} flex-auto`}>
+                            <Link href={'/companies/'+company.connected_company.data.attributes.hr_number} key={company.connected_company.data.attributes.hr_number}>
+                                <p className={`${style.summary}`}>{company.connected_company.data.attributes.company_name}</p>
+                                <p className={`${style.meta}`}>{company.connection_type}</p>
+                            </Link>
+                            </div>
+                            {company.hr_public.data?.id ? (
+                                <div className={`${style.hrLink} flex-none`}>
+                                    <Link href={'/hr/'+company.hr_public.data.id}>
+                                        <div className='w-5'>
+                                            <FontAwesomeIcon icon={faInfoCircle} />
+                                        </div>
+                                    </Link>
+                                </div>
+                            ) : null}
+                        </div>
                     )
                 })}
-                {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
-                        <div className="my-5">
-                            <Alert theme='info'>
-                                <p className="text-sm">
-                                    Es gibt nur ehemals verbundene Unternehmen.
-                                </p>
-                            </Alert>
-                            
-                        </div>
-                    ) : ''
-                }
-                {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
-                        <div className="my-5">
-                            <Alert theme='info'>
-                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Unternehmen.</p>
-                            </Alert>
-                        </div>
-                    ) : ''
-                }
+                {/* deleted */}
                 {ShowFullNetwork && networkInfo.attributes.deletedNetworkCompanies.map((company) => {
                     return (
                         <Link href={'/companies/'+company.connected_company.data.attributes.hr_number} key={company.connected_company.data.attributes.hr_number}>
@@ -103,9 +84,33 @@ export default function NetworkList({networkInfo}) {
                     </Link>
                     )
                 })}
+                {/* No Data Catching */}
+
+                {
+                    networkInfo.attributes.activeNetworkCompanies.length == 0 && networkInfo.attributes.deletedNetworkCompanies.length > 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">
+                                    Es gibt nur ehemals verbundene Unternehmen.
+                                </p>
+                            </Alert>
+                            
+                        </div>
+                    ) : ''
+                }
+                {
+                    networkInfo.attributes.activeNetworkCompanies.length == 0 && networkInfo.attributes.deletedNetworkCompanies == 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Unternehmen.</p>
+                            </Alert>
+                        </div>
+                    ) : ''
+                }
             </div>
             <div id="networkPersons">
                 <h6 className={`${style.networkTitle} rounded`}>Verbundene Personen</h6>
+                {/* Active Network */}
                 {networkInfo.attributes.activeNetworkPersons.slice(0, numToShow).map((person) => {
                     return (
                         <Link href={'/persons/'+person.connected_person.data.id} key={person.connected_person.data.id}>
@@ -132,27 +137,7 @@ export default function NetworkList({networkInfo}) {
                     </Link>
                     )
                 })}
-                {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
-                        <div className="my-5">
-                            <Alert theme='info'>
-                                <p className="text-sm">
-                                    Es gibt nur ehemals verbundene Personen.
-                                </p>
-                            </Alert>
-                            
-                        </div>
-                    ) : ''
-                }
-                {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
-                        <div className="my-5">
-                            <Alert theme='info'>
-                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Personen.</p>
-                            </Alert>
-                        </div>
-                    ) : ''
-                }
+                {/* Deleted Network */}
                 {ShowFullNetwork && networkInfo.attributes.deletedNetworkPersons.map((person) => {
                     return (
                         <Link href={'/persons/'+person.connected_person.data.id} key={person.connected_person.data.id}>
@@ -181,6 +166,28 @@ export default function NetworkList({networkInfo}) {
                     </Link>
                     )
                 })}
+                {/* No Data catching */}
+                {
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">
+                                    Es gibt nur ehemals verbundene Personen.
+                                </p>
+                            </Alert>
+                            
+                        </div>
+                    ) : ''
+                }
+                {
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
+                        <div className="my-5">
+                            <Alert theme='info'>
+                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Personen.</p>
+                            </Alert>
+                        </div>
+                    ) : ''
+                }
             </div>
         </div>
         {
