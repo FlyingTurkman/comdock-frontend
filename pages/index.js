@@ -24,14 +24,14 @@ const Index = ({companies, persons, texts, jumbotron}) => {
 
   return(
     <Layout nopageHeader>
-      <div className="bg-white rounded-lg p-4 mt-8 shadow">
-      <div className="mx-auto max-w-4xl">
-        <h3 className="text-primary mb-3">{texts.attributes.headline}</h3>
-        <div className="leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: jumbotron }}></div>
-      </div>
+      <div className="bg-white rounded-lg p-4 index-wrapper mt-8 shadow">
+        <div className="mx-auto max-w-4xl">
+          <h3 className="text-primary mb-3">{texts.attributes.headline}</h3>
+          <div className="leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: jumbotron }}></div>
+        </div>
       </div>
       <div className="md:flex md:flex-row md:gap-4 index-wrapper">
-        <section className="flex-grow">
+        <section className="basis-1/2">
           <div className="h3 text-primary">Firmen</div>
           <CompaniesList content={companies} />
           <div className="w-full text-center">
@@ -40,7 +40,7 @@ const Index = ({companies, persons, texts, jumbotron}) => {
             </Link>
           </div>
         </section>
-        <section className="flex-grow">
+        <section className="basis-1/2 pt-8 md:pt-0">
           <div className="h3 text-primary">Personen</div>
           <PersonsList content={persons} />
           <div className="w-full text-center">
