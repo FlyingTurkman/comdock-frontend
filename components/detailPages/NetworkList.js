@@ -1,4 +1,4 @@
-import { germanDate } from '@/helpers/helpScripts';
+import { dynamicIconHandler, germanDate } from '@/helpers/helpScripts';
 import style from '@/layout/ContentLists.module.sass';
 import { faArrowUpRightFromSquare, faBuilding, faInfo, faInfoCircle, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -63,7 +63,7 @@ export default function NetworkList({networkInfo}) {
                         <div className={`${style.networkItem} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={faBuilding} />
+                                        <FontAwesomeIcon icon={dynamicIconHandler(external.connected_external.data.attributes.icon)} />
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
@@ -116,7 +116,7 @@ export default function NetworkList({networkInfo}) {
                         <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                 <div className={style.faIcon}>
-                                    <FontAwesomeIcon icon={faBuilding} />
+                                    <FontAwesomeIcon icon={dynamicIconHandler(external.connected_external.data.attributes.icon)} />
                                 </div>
                             </div>
                             <div className={`${style.listContent} flex-auto`}>

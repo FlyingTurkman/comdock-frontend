@@ -15,7 +15,7 @@ const HRList = ({content}) => {
                     <Link href={'/hr/'+item.id} key={item.id}>
                         <div className={`${style.listItem} rounded-lg`} id={`hr${item.id}`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                <div className="w-5">
+                                <div className={style.faIcon}>
                                 <FontAwesomeIcon icon={dynamicIconHandler(item.attributes.pub_icon)} />
                                 </div>
                             </div>
