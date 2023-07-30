@@ -1,6 +1,6 @@
-import { germanDate } from '@/helpers/helpScripts';
+import { dynamicIconHandler, germanDate } from '@/helpers/helpScripts';
 import style from '@/layout/ContentLists.module.sass';
-import { faBuilding, faInfo, faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpRightFromSquare, faBuilding, faInfo, faInfoCircle, faLink, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -11,7 +11,8 @@ export default function NetworkList({networkInfo}) {
     const [ShowFullNetwork, setShowFullNetwork] = useState(false)
     const numToShow = ShowFullNetwork ? Math.max(
         networkInfo.attributes.activeNetworkCompanies.length,
-        networkInfo.attributes.activeNetworkPersons.length
+        networkInfo.attributes.activeNetworkPersons.length,
+        networkInfo.attributes.activeNetworkExternals.length
       ) : 3;
 
 
@@ -40,10 +41,10 @@ export default function NetworkList({networkInfo}) {
                                 </div>
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
-                            <Link href={'/companies/'+company.connected_company.data.attributes.hr_number} key={company.connected_company.data.attributes.hr_number}>
-                                <p className={`${style.summary}`}>{company.connected_company.data.attributes.company_name}</p>
-                                <p className={`${style.meta}`}>{company.connection_type}</p>
-                            </Link>
+                                <Link href={'/companies/'+company.connected_company.data.attributes.hr_number} key={company.connected_company.data.attributes.hr_number}>
+                                    <p className={`${style.summary}`}>{company.connected_company.data.attributes.company_name}</p>
+                                    <p className={`${style.meta}`}>{company.connection_type}</p>
+                                </Link>
                             </div>
                             {company.hr_public.data?.id ? (
                                 <div className={`${style.hrLink} flex-none`}>
@@ -57,6 +58,31 @@ export default function NetworkList({networkInfo}) {
                         </div>
                     )
                 })}
+                {ShowFullNetwork && networkInfo.attributes.activeNetworkExternals.map((external) => {
+                    return (
+                        <div className={`${style.networkItem} rounded-lg`}>
+                                <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                                    <div className={style.faIcon}>
+                                        <FontAwesomeIcon icon={dynamicIconHandler(external.connected_external.data.attributes.icon)} />
+                                    </div>
+                                </div>
+                                <div className={`${style.listContent} flex-auto`}>
+                                    <Link href={external.connected_external.data.attributes.url} target="_blank" key={external.connected_external.data.attributes.reg_number}>
+                                        <p className={`${style.summary}`}>{external.connected_external.data.attributes.company_name}</p>
+                                        <p className={`${style.meta}`}>{external.connection_type}</p>
+                                    </Link>
+                                </div>
+                                <div className={`${style.hrLink} flex-none`}>
+                                    <Link href={external.connected_external.data.attributes.url} target='blank'>
+                                        <div className='w-5'>
+                                            <FontAwesomeIcon icon={faLink} />
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                    )
+                })}
+
                 {/* deleted */}
                 {ShowFullNetwork && networkInfo.attributes.deletedNetworkCompanies.map((company) => {
                     return (
@@ -84,14 +110,41 @@ export default function NetworkList({networkInfo}) {
                     </Link>
                     )
                 })}
-                {/* No Data Catching */}
+                {ShowFullNetwork && networkInfo.attributes.deletedNetworkExternals.map((external) => {
+                    return (
+                        <Link href={external.connected_external.data.attributes.url} target='blank' key={external.connected_external.data.attributes.reg_number}>
+                        <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
+                            <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                                <div className={style.faIcon}>
+                                    <FontAwesomeIcon icon={dynamicIconHandler(external.connected_external.data.attributes.icon)} />
+                                </div>
+                            </div>
+                            <div className={`${style.listContent} flex-auto`}>
+                                <p className={`${style.summary}`}>{external.connected_external.data.attributes.company_name}</p>
+                                <p className={`${style.meta}`}>{external.connection_type} ({germanDate(external.since)} bis {germanDate(external.upto)})</p>
+                            </div>
+                            <div className={`${style.hrLink} flex-none`}>
+                                <Link href={external.connected_external.data.attributes.url} target='blank'>
+                                    <div className='w-5'>
+                                        <FontAwesomeIcon icon={faLink} />
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
+                    </Link>
+                    )
+                })}
 
+                {/* No Data Catching */}
                 {
-                    networkInfo.attributes.activeNetworkCompanies.length == 0 && networkInfo.attributes.deletedNetworkCompanies.length > 0 ? (
+                    networkInfo.attributes.activeNetworkCompanies.length == 0 && 
+                    (networkInfo.attributes.deletedNetworkCompanies.length > 0 || 
+                    networkInfo.attributes.activeNetworkExternals.length > 0 || 
+                    networkInfo.attributes.deletedNetworkExternals.length > 0) ? (
                         <div className="my-5">
                             <Alert theme='info'>
                                 <p className="text-sm">
-                                    Es gibt nur ehemals verbundene Unternehmen.
+                                    Es gibt ausgeblendete Einträge.
                                 </p>
                             </Alert>
                             
@@ -99,10 +152,13 @@ export default function NetworkList({networkInfo}) {
                     ) : ''
                 }
                 {
-                    networkInfo.attributes.activeNetworkCompanies.length == 0 && networkInfo.attributes.deletedNetworkCompanies == 0 ? (
+                    networkInfo.attributes.activeNetworkCompanies.length == 0 && 
+                    networkInfo.attributes.deletedNetworkCompanies == 0 && 
+                    networkInfo.attributes.activeNetworkExternals == 0 && 
+                    networkInfo.attributes.deletedNetworkExternals == 0 ? (
                         <div className="my-5">
                             <Alert theme='info'>
-                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Unternehmen.</p>
+                                <p className="text-sm">Es gibt keine verbundenen Unternehmen.</p>
                             </Alert>
                         </div>
                     ) : ''
@@ -168,11 +224,12 @@ export default function NetworkList({networkInfo}) {
                 })}
                 {/* No Data catching */}
                 {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && 
+                    networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
                         <div className="my-5">
                             <Alert theme='info'>
                                 <p className="text-sm">
-                                    Es gibt nur ehemals verbundene Personen.
+                                    Es gibt ausgeblendete Elemente.
                                 </p>
                             </Alert>
                             
@@ -180,10 +237,11 @@ export default function NetworkList({networkInfo}) {
                     ) : ''
                 }
                 {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && 
+                    networkInfo.attributes.deletedNetworkPersons == 0 ? (
                         <div className="my-5">
                             <Alert theme='info'>
-                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Personen.</p>
+                                <p className="text-sm">Es gibt keine verbundenen Personen.</p>
                             </Alert>
                         </div>
                     ) : ''
@@ -192,8 +250,12 @@ export default function NetworkList({networkInfo}) {
         </div>
         {
             (
-                networkInfo.attributes.activeNetworkCompanies.length > numToShow || networkInfo.attributes.activeNetworkPersons.length > numToShow ||
-                networkInfo.attributes.deletedNetworkCompanies.length > 0 || networkInfo.attributes.deletedNetworkPersons.length > 0
+                networkInfo.attributes.activeNetworkCompanies.length > numToShow || 
+                networkInfo.attributes.activeNetworkPersons.length > numToShow || 
+                networkInfo.attributes.activeNetworkExternals.length > numToShow ||
+                networkInfo.attributes.deletedNetworkCompanies.length > 0 || 
+                networkInfo.attributes.deletedNetworkPersons.length > 0 || 
+                networkInfo.attributes.deletedNetworkExternals.length > 0
             ) && (
                 <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
                     {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}

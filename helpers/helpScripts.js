@@ -1,6 +1,6 @@
 import { Remarkable } from 'remarkable';
 import { faFile } from '@fortawesome/free-regular-svg-icons';
-import { faBuilding, faCircleMinus, faCirclePlus, faCodeBranch, faEllipsis, faGraduationCap, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faBuildingColumns, faCircleMinus, faCirclePlus, faCodeBranch, faEllipsis, faGraduationCap, faHouseUser, faIndustry, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 
 export async function fetcher(endpoint, query, options = {}) {
@@ -86,6 +86,9 @@ export function dynamicIconHandler(import_icon) {
         'faFile': faFile,
         'faCircleMinus': faCircleMinus,
         'faCodeBranch': faCodeBranch,
+        'faIndustry': faIndustry,
+        'faBuildingColumns': faBuildingColumns,
+        'faHouseUser': faHouseUser
     };
     const export_icon = iconMap[import_icon];
     return export_icon
