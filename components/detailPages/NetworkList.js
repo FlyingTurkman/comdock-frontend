@@ -134,14 +134,17 @@ export default function NetworkList({networkInfo}) {
                     </Link>
                     )
                 })}
-                {/* No Data Catching */}
 
+                {/* No Data Catching */}
                 {
-                    networkInfo.attributes.activeNetworkCompanies.length == 0 && networkInfo.attributes.deletedNetworkCompanies.length > 0 ? (
+                    networkInfo.attributes.activeNetworkCompanies.length == 0 && 
+                    (networkInfo.attributes.deletedNetworkCompanies.length > 0 || 
+                    networkInfo.attributes.activeNetworkExternals.length > 0 || 
+                    networkInfo.attributes.deletedNetworkExternals.length > 0) ? (
                         <div className="my-5">
                             <Alert theme='info'>
                                 <p className="text-sm">
-                                    Es gibt nur ehemals verbundene Unternehmen.
+                                    Es gibt ausgeblendete Einträge.
                                 </p>
                             </Alert>
                             
@@ -149,10 +152,13 @@ export default function NetworkList({networkInfo}) {
                     ) : ''
                 }
                 {
-                    networkInfo.attributes.activeNetworkCompanies.length == 0 && networkInfo.attributes.deletedNetworkCompanies == 0 ? (
+                    networkInfo.attributes.activeNetworkCompanies.length == 0 && 
+                    networkInfo.attributes.deletedNetworkCompanies == 0 && 
+                    networkInfo.attributes.activeNetworkExternals == 0 && 
+                    networkInfo.attributes.deletedNetworkExternals == 0 ? (
                         <div className="my-5">
                             <Alert theme='info'>
-                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Unternehmen.</p>
+                                <p className="text-sm">Es gibt keine verbundenen Unternehmen.</p>
                             </Alert>
                         </div>
                     ) : ''
@@ -218,11 +224,12 @@ export default function NetworkList({networkInfo}) {
                 })}
                 {/* No Data catching */}
                 {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && 
+                    networkInfo.attributes.deletedNetworkPersons.length > 0 ? (
                         <div className="my-5">
                             <Alert theme='info'>
                                 <p className="text-sm">
-                                    Es gibt nur ehemals verbundene Personen.
+                                    Es gibt ausgeblendete Elemente.
                                 </p>
                             </Alert>
                             
@@ -230,10 +237,11 @@ export default function NetworkList({networkInfo}) {
                     ) : ''
                 }
                 {
-                    networkInfo.attributes.activeNetworkPersons.length == 0 && networkInfo.attributes.deletedNetworkPersons == 0 ? (
+                    networkInfo.attributes.activeNetworkPersons.length == 0 && 
+                    networkInfo.attributes.deletedNetworkPersons == 0 ? (
                         <div className="my-5">
                             <Alert theme='info'>
-                                <p className="text-sm">Es gibt keine aktuell oder ehemals verbundenen Personen.</p>
+                                <p className="text-sm">Es gibt keine verbundenen Personen.</p>
                             </Alert>
                         </div>
                     ) : ''
