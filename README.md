@@ -1,38 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# COMDOCK frontend
 
-## Getting Started
+COMDOCK is a web application that allows you to view simulated **fake** company informations, similar to what you would find in applications such as [NorthData](http://www.northdata.de) or the German Websites [unternehmensregister.de](http://www.unternehmensregister.de) and [handelsregister.de](http://www.handelsregister.de) for real informations.
 
-First, run the development server:
+## What you can do with this App
+
+The app visualizes information about companies that could be published in the [German Company Register](https://www.unternehmensregister.de/) or the German [DPMAregister](https://register.dpma.de/).The app collects and processes this data and then presents it in an easy-to-understand format.
+
+## DISCLAIMER
+
+The resulting web application and its contents of this repository are in many parts very similar to the official websites and entries of the german company register. It is expressly pointed out that all contents of this website in live state and into this repository are entirely fictitious. Any similarities in company names or connections to real existing persons and companies are purely coincidental and do not correspond to reality.
+
+The containing data of the website should be inserted exclusively through an external database. If you still find data into the code of this repository that does not seem to serve the basic structure of the website, please report by an [issue](https://github.com/onissen/comdock-frontend/issues) into this repository. Even if you find parts of the code that do not seem to be intended for the public despite our previous review (such as access data or other backdoors), please [report](https://github.com/onissen/comdock-frontend/issues) them as an issue to the repository owner. Thank you!
+
+## Technical Informations
+
+This project is powered by [Next.js](http://nextjs.org/). It consumes and visualizes data from a [Strapi Project](http://strapi.io) stored in [onissen/comdock-backend](http://github.com/onissen/comdock-backend).
+
+This App uses these libraries in particular:
+
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Headless UI](https://headlessui.com/)
+- [FontAwesome Icons](https://fontawesome.com/)
+
+All libraries used can be found in the `package.json` of this repo.
+
+### Install and run this project
+
+To run this Project you also need to use [onissen/comdock-backend](https://github.com/onissen/comdock-backend/). More info on running the Backend can be found in this project.
+
+To connect this frontend to the backend you need to create an `.env` File in the project root that contains the `NEXT_PUBLIC_STRAPI_URL`:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+NEXT_PUBLIC_STRAPI_URL = <your backend URL>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+To install and run the project in development configuration, run the commands in your command line:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+After it, navigate to [localhost:3000](localhost:3000) with your Browser to see the App.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## More Infos
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js Documentation](https://nextjs.org/docs/)
+- I've learned Next.js and Strapi Development with the official YouTube series [Create your "next" app using Next.js and Strapi](https://youtube.com/playlist?list=PL7Q0DQYATmvjXSuHfB8CY_n_oUeqZzauZ) by Strapi.
