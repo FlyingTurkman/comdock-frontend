@@ -15,7 +15,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Nav({nopageHeader, backend}) {
+export default function Nav({nopageHeader}) {
   const router = useRouter();
   const updatedNavigation = navigation.map((item) => ({
     ...item,
@@ -46,21 +46,13 @@ export default function Nav({nopageHeader, backend}) {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  
-                  {backend ? (
-                    <Link className="flex" href="/legal">
-                      <img className="block h-8 w-auto" src="/icons/icon-light.svg" alt="COMDOCK Legal" />
-                      <span className="ml-6 my-auto text-xl font-medium text-zinc-100">COMDOCK Legal</span>
-                    </Link>
-                  ) : (
-                    <Link href="/">
-                      <img className="block h-8 w-auto" src="/icons/icon-light.svg" alt="COMDOCK Index" />
-                    </Link>
-                  )}
+                  <Link href="/">
+                    <img className="block h-8 w-auto" src="/icons/icon-light.svg" alt="COMDOCK" />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
-                    {!backend && updatedNavigation.map((item) => (
+                    {updatedNavigation.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}

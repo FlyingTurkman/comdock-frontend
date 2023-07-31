@@ -5,7 +5,7 @@ import Nav from "./Nav";
 import Link from "next/link";
 
 
-export default function Layout ({children, siteTitle, nopageHeader, backend}) {
+export default function Layout ({children, siteTitle, nopageHeader}) {
     return (
         <>
             <Head>
@@ -14,7 +14,7 @@ export default function Layout ({children, siteTitle, nopageHeader, backend}) {
                     {siteTitle ? (siteTitle+' | '+'COMDOCK Index') : ('COMDOCK Index')}
                 </title>
             </Head>
-            <Nav nopageHeader={nopageHeader} backend={backend} />
+            <Nav nopageHeader={nopageHeader} />
             <main>
                 {children}
             </main>            
