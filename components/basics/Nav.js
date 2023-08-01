@@ -1,4 +1,3 @@
-import { unsetToken, useFetchUser } from '@/helpers/auth'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -23,10 +22,6 @@ export default function Nav({nopageHeader}) {
     (router.pathname.startsWith("/companies") && item.href === "/companies") ||
     (router.pathname.startsWith("/persons") && item.href === "/persons")
   }));
-  const logout = () => {
-    unsetToken();
-  };
-  const {user} = useFetchUser()
   return (
     <Disclosure as="nav" className={`bg-primary-600 ${nopageHeader ? 'rounded-b-lg' : ''}`}>
       {({ open }) => (
