@@ -3,4 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = nextConfig
+const { version } = require('./package.json');
+
+
+module.exports = {
+  publicRuntimeConfig: {
+    version,
+  },
+};
