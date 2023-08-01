@@ -7,13 +7,13 @@ export default function NotFound() {
         <>
             <Head>
                 <link rel="shortcut icon" href="/icons/icon-primary.svg" />
-                <title>Seite nicht gefunden | COMDOCK Index</title>
+                <title>Seite nicht gefunden | COMDOCK</title>
             </Head>
 
             <main className="wrapper flex flex-col items-center h-screen">
                 <Link className="flex" href="/">
-                    <img className="block h-12 w-auto" src="/icons/icon-primary.svg" alt="COMDOCK Index" />
-                    <h1 className="text-primary ml-6 self-center leading-none">COMDOCK Index</h1>
+                    <img className="block h-12 w-auto" src="/icons/icon-primary.svg" alt="COMDOCK" />
+                    <h1 className="text-primary ml-6 self-center leading-none">COMDOCK</h1>
                 </Link>
 
                 <div className="grow text-center justify-center items-center flex flex-col">
