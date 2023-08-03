@@ -32,7 +32,7 @@ const Companies = ({companies}) => {
 };
 export default Companies
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const contentResponse = await fetcher(
       'companies', 

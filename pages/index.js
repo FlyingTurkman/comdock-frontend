@@ -56,7 +56,7 @@ const Index = ({companies, persons, texts, jumbotron}) => {
 
 export default Index
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const companyResponse = await fetcher(
       'companies', 

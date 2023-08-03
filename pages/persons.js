@@ -29,7 +29,7 @@ const Persons = ({persons}) => {
 }
 export default Persons
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
     const contentResponse = await fetcher(
       `persons`,
