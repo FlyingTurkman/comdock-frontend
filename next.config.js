@@ -7,5 +7,4 @@ module.exports = {
   publicRuntimeConfig: {
     version,
   },
-  output: 'standalone'
 };
