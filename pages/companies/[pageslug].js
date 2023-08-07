@@ -1,6 +1,5 @@
 import Layout from "@/components/basics/Layout"
 import DetailPage from "@/components/pagetypes/DetailPage";
-import NetworkList from "@/components/detailPages/NetworkList";
 import { fetcher, markdownToHtml } from "@/helpers/helpScripts";
 import { faArrowRightArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
