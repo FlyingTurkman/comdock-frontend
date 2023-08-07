@@ -1,4 +1,3 @@
-import style from '@/layout/ContentLists.module.sass';
 import Layout from "@/components/basics/Layout"
 import DetailPage from "@/components/pagetypes/DetailPage";
 import NetworkList from "@/components/detailPages/NetworkList";
@@ -8,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PablicationSection from '@/components/detailPages/PublicationSection';
 import { ConnectionFailFullSite } from '@/components/errors/ConnectionFailFullSite';
 import { useEffect } from 'react';
+import Network from "@/components/detailPages/Network";
+
 
 const CompanyDetail = ({item, relationalInfo, corp_object}) => {
     useEffect(() => {
@@ -89,12 +90,11 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                         <div className={`my-2 markdownBox`} dangerouslySetInnerHTML={{ __html: corp_object }}></div>
                     </section>
                 ) : '' }
-                {item.attributes.networkCompanies.length > 0 || item.attributes.networkPersons.length > 0 ? (
+                {item.attributes.childNetworks.data.length > 0 || item.attributes.parentNetworks.data.length > 0 ? (
                     <section id="network" className="detailSection">
                         <h4 className="sectionLabel">Netzwerk</h4>
                         <div className="my-2">
-                            
-                            <NetworkList networkInfo={relationalInfo} />
+                            <Network networkInfo={relationalInfo} />
                         </div>
                     </section>
                 ) : '' }
@@ -117,54 +117,20 @@ export async function getServerSideProps({params}) {
     try {
         const contentResponse = await fetcher(
             `slugify/slugs/company/${pageslug}`, 
-            `populate=*&_sort=furtherNames.name_upto:ASC`
+            `populate=*`
         )
+        const corp_object = await markdownToHtml(contentResponse.data.attributes.corp_object);
 
         const relationalResponse = await fetcher(
             `slugify/slugs/company/${pageslug}`,
-            `fields=company_name&populate[networkCompanies][populate][connected_company][fields][0]=hr_number,company_name&populate[networkPersons][populate][connected_person][fields][0]=id,first_name,sir_name&populate[networkExternals][populate][connected_external][fields][0]=company_name,url,reg_dept&populate[networkCompanies][populate][hr_public][fields][0]=id&populate[networkPersons][populate][hr_public][fields][0]=id&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`
+            `fields[0]=company_name&populate[childNetworks][populate][parentCompany][fields][0]=company_name,hr_number&populate[childNetworks][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[childNetworks][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[parentNetworks][populate][childCompany][fields][0]=company_name,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`
         )
-
-        const corp_object = await markdownToHtml(contentResponse.data.attributes.corp_object);
-        
-        // Sort networkCompanies, networkPersons, networkExternals by their 'since' field
-        relationalResponse.data.attributes.networkCompanies.sort((oldest, newest) => {
-            return new Date(newest.since) - new Date(oldest.since);
-        });
-
-        relationalResponse.data.attributes.networkPersons.sort((oldest, newest) => {
-            return new Date(newest.since) - new Date(oldest.since);
-        });
-
-        relationalResponse.data.attributes.networkExternals.sort((oldest, newest) => {
-            return new Date(newest.since) - new Date(oldest.since);
-        });
-
-        const activeNetworkCompanies = relationalResponse.data.attributes.networkCompanies.filter(company => company.upto === null || company.upto === '');
-        const deletedNetworkCompanies = relationalResponse.data.attributes.networkCompanies.filter(company => company.upto !== null && company.upto !== '');
-
-        const activeNetworkPersons = relationalResponse.data.attributes.networkPersons.filter(person => person.upto === null || person.upto === '');
-        const deletedNetworkPersons = relationalResponse.data.attributes.networkPersons.filter(person => person.upto !== null && person.upto !== '');
-
-        const activeNetworkExternals = relationalResponse.data.attributes.networkExternals.filter(external => external.upto === null || external.upto === '');
-        const deletedNetworkExternals = relationalResponse.data.attributes.networkExternals.filter(external => external.upto !== null && external.upto !== '');
 
         return{
             props: {
                 item: contentResponse.data,
                 corp_object,
-                relationalInfo: {
-                    ...relationalResponse.data,
-                    attributes: {
-                        ...relationalResponse.data.attributes,
-                        activeNetworkCompanies: activeNetworkCompanies,
-                        deletedNetworkCompanies: deletedNetworkCompanies,
-                        activeNetworkPersons: activeNetworkPersons,
-                        deletedNetworkPersons: deletedNetworkPersons,
-                        activeNetworkExternals: activeNetworkExternals,
-                        deletedNetworkExternals: deletedNetworkExternals
-                    }
-                }
+                relationalInfo: relationalResponse.data
             }
         }
     } catch (error) {
