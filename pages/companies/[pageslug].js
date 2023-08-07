@@ -90,7 +90,7 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                         <div className={`my-2 markdownBox`} dangerouslySetInnerHTML={{ __html: corp_object }}></div>
                     </section>
                 ) : '' }
-                {item.attributes.childNetworks.data.length > 0 || item.attributes.parentNetworks.data.length > 0 ? (
+                {item.attributes.networkChildren.data.length > 0 || item.attributes.networkParents.data.length > 0 ? (
                     <section id="network" className="detailSection">
                         <h4 className="sectionLabel">Netzwerk</h4>
                         <div className="my-2">
@@ -123,7 +123,7 @@ export async function getServerSideProps({params}) {
 
         const relationalResponse = await fetcher(
             `slugify/slugs/company/${pageslug}`,
-            `fields[0]=company_name&populate[childNetworks][populate][parentCompany][fields][0]=company_name,hr_number&populate[childNetworks][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[childNetworks][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[parentNetworks][populate][childCompany][fields][0]=company_name,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`
+            `fields[0]=company_name&populate[networkParents][populate][parentCompany][fields][0]=company_name,hr_number&populate[networkParents][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[networkParents][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`    
         )
 
         return{
