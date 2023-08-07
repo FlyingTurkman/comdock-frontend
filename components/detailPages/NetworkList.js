@@ -61,25 +61,25 @@ export default function NetworkList({networkInfo}) {
                 {ShowFullNetwork && networkInfo.attributes.activeNetworkExternals.map((external) => {
                     return (
                         <div className={`${style.networkItem} rounded-lg`}>
-                                <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                    <div className={style.faIcon}>
-                                        <FontAwesomeIcon icon={dynamicIconHandler(external.connected_external.data.attributes.icon)} />
-                                    </div>
-                                </div>
-                                <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={external.connected_external.data.attributes.url} target="_blank" key={external.connected_external.data.attributes.reg_number}>
-                                        <p className={`${style.summary}`}>{external.connected_external.data.attributes.company_name}</p>
-                                        <p className={`${style.meta}`}>{external.connection_type}</p>
-                                    </Link>
-                                </div>
-                                <div className={`${style.hrLink} flex-none`}>
-                                    <Link href={external.connected_external.data.attributes.url} target='blank'>
-                                        <div className='w-5'>
-                                            <FontAwesomeIcon icon={faLink} />
-                                        </div>
-                                    </Link>
+                            <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
+                                <div className={style.faIcon}>
+                                    <FontAwesomeIcon icon={faBuilding} />
                                 </div>
                             </div>
+                            <div className={`${style.listContent} flex-auto`}>
+                                <Link href={external.connected_external.data.attributes.url} target="_blank" key={external.connected_external.data.attributes.reg_number}>
+                                    <p className={`${style.summary}`}>{external.connected_external.data.attributes.company_name}</p>
+                                    <p className={`${style.meta}`}>{external.connection_type}</p>
+                                </Link>
+                            </div>
+                            <div className={`${style.hrLink} flex-none`}>
+                                <Link href={external.connected_external.data.attributes.url} target='blank'>
+                                    <div className='w-5'>
+                                        <FontAwesomeIcon icon={faLink} />
+                                    </div>
+                                </Link>
+                            </div>
+                        </div>
                     )
                 })}
 

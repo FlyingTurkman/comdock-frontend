@@ -12,7 +12,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 50090",
     "build": "next build",
     "start": "next start -p 50090",
     "lint": "next lint"
