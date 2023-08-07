@@ -9,18 +9,18 @@ import Alert from '../basics/Alert';
 
 export default function Network({networkInfo}) {
 
-    const sortedNetwork = networkInfo.attributes.childNetworks.data.sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since));
-    const activeNetwork = sortedNetwork.filter(item => item.attributes.upto === null);
-    const deletedNetwork = sortedNetwork.filter(item => item.attributes.upto !== null);
-
-    const parents = networkInfo.attributes.parentNetworks.data.sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since));
+    // PARENT = Partner ist dieser Firma übergeordnet
+    const parents = networkInfo.attributes.networkParents.data.sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since));
     const activeParents = parents.filter(item => item.attributes.upto === null);
     const deletedParents = parents.filter(item => item.attributes.upto !== null);
 
+    const children = networkInfo.attributes.networkParents.data.sort((newest, oldest) => oldest.attributes.since.localeCompare(newest.attributes.since));
+    const activeChildren = children.filter(item => item.attributes.upto === null);
+    const deletedChildren = children.filter(item => item.attributes.upto !== null);
+
     const [ShowFullNetwork, setShowFullNetwork] = useState(false)
     const initalNum = 4
-    const numToShow = ShowFullNetwork ? activeNetwork.length : initalNum;
-
+    const numToShow = ShowFullNetwork ? activeParents.length : initalNum;
 
     return(
         <>
@@ -37,8 +37,8 @@ export default function Network({networkInfo}) {
 
             <div className="grid grid-cols-2 gap-4 mb-5">
                 
-                {activeNetwork.slice(0, numToShow).map((child) => {
-                    if (child.attributes.parentCompany.data !== null) {
+                {activeParents.slice(0, numToShow).map((parent) => {
+                    if (parent.attributes.parentCompany.data !== null) {
                         return (
                             <div className={`${style.networkItem} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
@@ -47,20 +47,20 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={'/companies/'+child.attributes.parentCompany.data.attributes.hr_number} >
-                                        <p className={`${style.summary}`}>{child.attributes.parentCompany.data.attributes.company_name}</p>
-                                        <p className={`${style.meta}`}>{child.attributes.type}</p>
+                                    <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.hr_number} >
+                                        <p className={`${style.summary}`}>{parent.attributes.parentCompany.data.attributes.company_name}</p>
+                                        <p className={`${style.meta}`}>{parent.attributes.type}</p>
                                     </Link>
                                 </div>
                             </div>
                         )
 
-                    } else if (child.attributes.parentExternal.data !== null) {
+                    } else if (parent.attributes.parentExternal.data !== null) {
                         return (
                             <div className={`${style.networkItem} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
-                                        {child.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
+                                        {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
                                             <FontAwesomeIcon icon={faBuildingColumns} />
                                         ) : (
                                             <FontAwesomeIcon icon={faIndustry} />
@@ -68,15 +68,15 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={child.attributes.parentExternal.data.attributes.url} target='_blank' >
-                                        <p className={`${style.summary}`}>{child.attributes.parentExternal.data.attributes.company_name}</p>
-                                        <p className={`${style.meta}`}>{child.attributes.type}</p>
+                                    <Link href={parent.attributes.parentExternal.data.attributes.url} target='_blank' >
+                                        <p className={`${style.summary}`}>{parent.attributes.parentExternal.data.attributes.company_name}</p>
+                                        <p className={`${style.meta}`}>{parent.attributes.type}</p>
                                     </Link>
                                 </div>
                             </div>
                         )
 
-                    } else if (child.attributes.parentPerson.data !== null) {
+                    } else if (parent.attributes.parentPerson.data !== null) {
                         return (
                             <div className={`${style.networkItem} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
@@ -85,9 +85,9 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={'/persons/'+child.attributes.parentPerson.data.id} >
-                                        <p className={`${style.summary}`}>{child.attributes.parentPerson.data.attributes.first_name} {child.attributes.parentPerson.data.attributes.sir_name}</p>
-                                        <p className={`${style.meta}`}>{child.attributes.type}</p>
+                                    <Link href={'/persons/'+parent.attributes.parentPerson.data.id} >
+                                        <p className={`${style.summary}`}>{parent.attributes.parentPerson.data.attributes.first_name} {parent.attributes.parentPerson.data.attributes.sir_name}</p>
+                                        <p className={`${style.meta}`}>{parent.attributes.type}</p>
                                     </Link>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@ export default function Network({networkInfo}) {
                     }
                 })}
 
-                {ShowFullNetwork && activeParents.map((parent) => {
+                {/* {ShowFullNetwork && activeHIERren.map((parent) => {
                     return (
                         <div className={`${style.networkItem} rounded-lg`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
@@ -111,10 +111,10 @@ export default function Network({networkInfo}) {
                             </div>
                         </div>
                     )
-                })}
+                })} */}
 
-                {ShowFullNetwork && deletedNetwork.map((child) => {
-                    if (child.attributes.parentCompany.data !== null) {
+                {/* {ShowFullNetwork && deletedParents.map((HIER) => {
+                    if (HIER.attributes.parentCompany.data !== null) {
                         return (
                             <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
@@ -123,22 +123,22 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={'/companies/'+child.attributes.parentCompany.data.attributes.hr_number} >
-                                        <p className={`${style.summary}`}>{child.attributes.parentCompany.data.attributes.company_name}</p>
+                                    <Link href={'/companies/'+HIER.attributes.parentCompany.data.attributes.hr_number} >
+                                        <p className={`${style.summary}`}>{HIER.attributes.parentCompany.data.attributes.company_name}</p>
                                         <p className={`${style.meta}`}>
-                                            {child.attributes.type} ({germanDate(child.attributes.since)+' bis '+germanDate(child.attributes.upto)})
+                                            {HIER.attributes.type} ({germanDate(HIER.attributes.since)+' bis '+germanDate(HIER.attributes.upto)})
                                         </p>
                                     </Link>
                                 </div>
                             </div>
                         )
 
-                    } else if (child.attributes.parentExternal.data !== null) {
+                    } else if (HIER.attributes.parentExternal.data !== null) {
                         return (
                             <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
-                                        {child.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
+                                        {HIER.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
                                             <FontAwesomeIcon icon={faBuildingColumns} />
                                         ) : (
                                             <FontAwesomeIcon icon={faIndustry} />
@@ -146,17 +146,17 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={child.attributes.parentExternal.data.attributes.url} target='_blank' >
-                                        <p className={`${style.summary}`}>{child.attributes.parentExternal.data.attributes.company_name}</p>
+                                    <Link href={HIER.attributes.parentExternal.data.attributes.url} target='_blank' >
+                                        <p className={`${style.summary}`}>{HIER.attributes.parentExternal.data.attributes.company_name}</p>
                                         <p className={`${style.meta}`}>
-                                            {child.attributes.type} ({germanDate(child.attributes.since)+' bis '+germanDate(child.attributes.upto)})
+                                            {HIER.attributes.type} ({germanDate(HIER.attributes.since)+' bis '+germanDate(HIER.attributes.upto)})
                                         </p>
                                     </Link>
                                 </div>
                             </div>
                         )
 
-                    } else if (child.attributes.parentPerson.data !== null) {
+                    } else if (HIER.attributes.parentPerson.data !== null) {
                         return (
                             <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
@@ -165,19 +165,19 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={'/persons/'+child.attributes.parentPerson.data.id} >
-                                        <p className={`${style.summary}`}>{child.attributes.parentPerson.data.attributes.first_name} {child.attributes.parentPerson.data.attributes.sir_name}</p>
+                                    <Link href={'/persons/'+HIER.attributes.parentPerson.data.id} >
+                                        <p className={`${style.summary}`}>{HIER.attributes.parentPerson.data.attributes.first_name} {HIER.attributes.parentPerson.data.attributes.sir_name}</p>
                                         <p className={`${style.meta}`}>
-                                            {child.attributes.type} ({germanDate(child.attributes.since)+' bis '+germanDate(child.attributes.upto)})
+                                            {HIER.attributes.type} ({germanDate(HIER.attributes.since)+' bis '+germanDate(HIER.attributes.upto)})
                                         </p>
                                     </Link>
                                 </div>
                             </div>
                         )
                     }
-                })}
+                })} */}
 
-                {ShowFullNetwork && deletedParents.map((parent) => {
+                {/* {ShowFullNetwork && deletedChildren.map((parent) => {
                     return (
                         <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
@@ -186,7 +186,7 @@ export default function Network({networkInfo}) {
                                 </div>
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
-                                <Link href={'/companies/'+parent.attributes.childCompany.data.attributes.hr_number} >
+                                <Link href={'/companies/'+parent.attributes.HIERCompany.data.attributes.hr_number} >
                                     <p className={`${style.summary}`}>{parent.attributes.childCompany.data.attributes.company_name}</p>
                                     <p className={`${style.meta}`}>
                                         {parent.attributes.type} ({germanDate(parent.attributes.since)+' bis '+germanDate(parent.attributes.upto)})
@@ -195,22 +195,22 @@ export default function Network({networkInfo}) {
                             </div>
                         </div>
                     )
-                })}
+                })} */}
 
             </div>
-            {activeNetwork.length === 0 && (deletedNetwork.length > 0 || activeParents.length > 0 || deletedParents.length > 0) ? (
+            {/* {!ShowFullNetwork && activeParents.length === 0 && (deletedParents.length > 0 || activeChildren.length > 0 || deletedChildren.length > 0) ? (
                 <Alert theme='info'>
                     <p className="text-sm">
                         Es gibt ausgeblendete Einträge.
                     </p>
                 </Alert>
-            ) : ''}
+            ) : ''} */}
             
-            {(activeNetwork.length > initalNum || deletedNetwork.length > 0 || activeParents.length > 0 || deletedParents.length > 0) && (
-            <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
-                {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
-            </button>
-            )}
+            {/* {(activeParents.length > initalNum || deletedParents.length > 0 || activeChildren.length > 0 || deletedHIER.length > 0) && (
+                <button className={`${style.LenghtToggleButton} ${style.network} rounded`} onClick={() => setShowFullNetwork(!ShowFullNetwork)}>
+                    {ShowFullNetwork ? "Netzwerk einklappen" : "Netzwerk ausklappen"}
+                </button>
+            )} */}
             
 
     
