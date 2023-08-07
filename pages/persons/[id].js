@@ -65,6 +65,8 @@ const PersonDetail = ({item}) => {
                     </section>
                 ) : ''}
 
+
+                {/* TODO: HRPub view has to be rethaught #91 */}
                 {/* {hr_items.length !== 0 ? (
                     <section id="publics" className="detailSection">
                         <h4 className="sectionLabel">Publikationen</h4>
