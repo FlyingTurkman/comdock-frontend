@@ -5,7 +5,7 @@ import style from '@/layout/TabNavs.module.sass';
 import HRList from './HRList';
 import DocList from './DocList';
 
-export default function PablicationSection({hr = null, docs = null}) {
+export default function PablicationSection({hr, pubsMentioned, docs}) {
   
   const tabRef = useRef(null);
 
@@ -21,7 +21,7 @@ export default function PablicationSection({hr = null, docs = null}) {
     <div className="w-full">
     <Tab.Group>
       <Tab.List className={style.tabNav}>
-        {hr.data.length > 0 ? (
+        {hr.length > 0 ? (
           <Tab as={Fragment}>
             {({ selected }) => (
               <button className={`${style.tabNavItem} ${selected ? style.tabNavItemActive : ''}`}>
@@ -43,12 +43,11 @@ export default function PablicationSection({hr = null, docs = null}) {
       </Tab.List>
 
       <Tab.Panels className="mt-2">
-        {hr.data.length > 0 ? (
+        {hr.length > 0 ? (
         <Tab.Panel id="hr_pubs" className="p-3">
             <HRList content={hr} />
         </Tab.Panel>
         ) : ''}
-
         {docs.data.length > 0 ? (
         <Tab.Panel id="company_docs" className="p-3">
             <DocList content={docs} />

@@ -56,8 +56,8 @@ const PersonDetail = ({item}) => {
 
                 {item.attributes.pubsMentioned.data.length > 0 ? (
                     <section id="publics" className="detailSection">
-                        <h4 className="sectionLabel">Publikationen</h4>
-                        <HRList content={item.attributes.pubsMentioned} />
+                        <h4 className="sectionLabel">Veröffentlichungen</h4>
+                        <HRList content={item.attributes.pubsMentioned.data} />
                     </section>
                 ) : ''}
 
@@ -71,7 +71,7 @@ export async function getServerSideProps({params}) {
     try{
         const contentResponse = await fetcher(
             `persons/${id}`,
-            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate=pubsMentioned'
+            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate[pubsMentioned][populate][company][fields][0]=company_name,hr_number'
         )
         return {
             props: {

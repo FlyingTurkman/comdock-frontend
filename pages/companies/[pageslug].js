@@ -22,6 +22,10 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
         return(<ConnectionFailFullSite />)
     }
 
+    const allPubs = item.attributes.hr_pubs.data.concat(relationalInfo.attributes.pubsMentioned.data).sort((newest, oldest) => oldest.attributes.pub_date.localeCompare(newest.attributes.pub_date))
+    console.log(allPubs)
+
+
     return(
         <Layout siteTitle={item.attributes.company_name}>
             <DetailPage 
@@ -97,11 +101,11 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                         </div>
                     </section>
                 ) : '' }
-                {item.attributes.hr_pubs.data.length > 0 || relationalInfo.attributes.docs.data.length > 0 ? (
+                {item.attributes.hr_pubs.data.length > 0 || item.attributes.pubsMentioned.data.length > 0 || relationalInfo.attributes.docs.data.length > 0 ? (
                 <section id="publications" className="detailSection">
                     <h4 className="sectionLabel">Veröffentlichungen</h4>
                     <div className="my-2">
-                        <PablicationSection hr={item.attributes.hr_pubs} docs={relationalInfo.attributes.docs} />
+                        <PablicationSection hr={allPubs} docs={relationalInfo.attributes.docs} />
                     </div>
                 </section>
                 ) : ''}
@@ -122,7 +126,7 @@ export async function getServerSideProps({params}) {
 
         const relationalResponse = await fetcher(
             `slugify/slugs/company/${pageslug}`,
-            `fields[0]=company_name&populate[networkParents][populate][parentCompany][fields][0]=company_name,hr_number&populate[networkParents][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[networkParents][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`    
+            `fields[0]=company_name&populate[networkParents][populate][parentCompany][fields][0]=company_name,hr_number&populate[networkParents][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[networkParents][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url&populate[pubsMentioned][populate][company][fields][0]=hr_number,company_name`
         )
 
         return{

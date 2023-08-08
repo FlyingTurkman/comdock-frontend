@@ -1,30 +1,33 @@
 import { dynamicIconHandler, germanDate } from '@/helpers/helpScripts';
 import style from '@/layout/ContentLists.module.sass';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
-
 import Link from "next/link";
 
 const HRList = ({content}) => {
     return(
         <div>
-            { content && content.data.map((item) => {
+            { content && content.map((item) => {
                 
                 return (
-                    <Link href={'/hr/'+item.id} key={item.id}>
-                        <div className={`${style.listItem} rounded-lg`} id={`hr${item.id}`}>
+                    <div className={`${style.listItem} rounded-lg`} id={`hr${item.id}`}>
+                        <Link href={'/hr/'+item.id} key={item.id}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                 <div className={style.faIcon}>
                                 <FontAwesomeIcon icon={dynamicIconHandler(item.attributes.pub_icon)} />
                                 </div>
                             </div>
-                            <div className={`${style.listContent} flex-auto`}>
-                                <p className={`${style.meta}`}>{germanDate(item.attributes.pub_date)}</p>
+                        </Link>
+                        <div className={`${style.listContent} flex-auto`}>
+                            <p className={`${style.meta}`}>
+                                <span>{germanDate(item.attributes.pub_date)}</span>
+                                <span> | über </span>
+                                <Link href={'/company/'+item.attributes.company.data.attributes.hr_number} className='font-semibold hover:underline'>{item.attributes.company.data.attributes.company_name}</Link>
+                            </p>
+                            <Link href={'/hr/'+item.id} key={item.id}>
                                 <p className={`${style.summary}`}>{item.attributes.pub_title}: {item.attributes.pub_summary}</p>
-                            </div>
+                            </Link>
                         </div>
-                    </Link>
+                    </div>
                 );
             })}
         </div>
