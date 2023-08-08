@@ -127,7 +127,7 @@ export default function Network({networkInfo}) {
                                     <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.hr_number} >
                                         <p className={`${style.summary}`}>{parent.attributes.parentCompany.data.attributes.company_name}</p>
                                         <p className={`${style.meta}`}>
-                                            {parent.attributes.type} (bis {germanDate(parent.attributes.upto)})
+                                            {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
                                         </p>
                                     </Link>
                                 </div>
@@ -150,7 +150,7 @@ export default function Network({networkInfo}) {
                                     <Link href={parent.attributes.parentExternal.data.attributes.url} target='_blank' >
                                         <p className={`${style.summary}`}>{parent.attributes.parentExternal.data.attributes.company_name}</p>
                                         <p className={`${style.meta}`}>
-                                            {parent.attributes.type} (bis {germanDate(parent.attributes.upto)})
+                                            {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
                                         </p>
                                     </Link>
                                 </div>
@@ -169,7 +169,7 @@ export default function Network({networkInfo}) {
                                     <Link href={'/persons/'+parent.attributes.parentPerson.data.id} >
                                         <p className={`${style.summary}`}>{parent.attributes.parentPerson.data.attributes.first_name} {parent.attributes.parentPerson.data.attributes.sir_name}</p>
                                         <p className={`${style.meta}`}>
-                                            {parent.attributes.type} (bis {germanDate(parent.attributes.upto)})
+                                            {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
                                         </p>
                                     </Link>
                                 </div>
@@ -190,7 +190,7 @@ export default function Network({networkInfo}) {
                                 <Link href={'/companies/'+child.attributes.childCompany.data.attributes.hr_number} >
                                     <p className={`${style.summary}`}>{child.attributes.childCompany.data.attributes.company_name}</p>
                                     <p className={`${style.meta}`}>
-                                        {child.attributes.type} (bis {germanDate(child.attributes.upto)})
+                                        {child.attributes.type} ({germanDate(child.attributes.since)+' bis '+germanDate(child.attributes.upto)})
                                     </p>
                                 </Link>
                             </div>
