@@ -3,12 +3,11 @@ import DetailPage from "@/components/pagetypes/DetailPage";
 import Link from "next/link";
 import style from '@/layout/ContentLists.module.sass';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBuilding, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { dynamicIconHandler, fetcher, germanDate } from "@/helpers/helpScripts";
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { fetcher, germanDate } from "@/helpers/helpScripts";
 import { useEffect } from "react";
 import { ConnectionFailFullSite } from "@/components/errors/ConnectionFailFullSite";
-import Alert from "@/components/basics/Alert";
-
+import HRList from "@/components/detailPages/HRList";
 
 const PersonDetail = ({item}) => {
     useEffect(() => {
@@ -22,17 +21,7 @@ const PersonDetail = ({item}) => {
     if (!item) {
         return(<ConnectionFailFullSite />)
     }
-
-    const hr_items = item.attributes.personNetwork && item.attributes.personNetwork
-        .reduce((uniqueItems, hr_item) => {
-            if (hr_item.hr_public.data !== null) {
-                if (!uniqueItems.find(item => item.hr_public.data.id === hr_item.hr_public.data.id)) {
-                    uniqueItems.push(hr_item);
-                }
-                return uniqueItems;
-            } else {return uniqueItems}
-        }, [])
-    
+        
     return (
         <Layout siteTitle={item.attributes.first_name+' '+item.attributes.sir_name+', '+item.attributes.city}>
             <DetailPage title={item.attributes.first_name+' '+item.attributes.sir_name+', '+item.attributes.city} contentType='person'>
@@ -65,40 +54,13 @@ const PersonDetail = ({item}) => {
                     </section>
                 ) : ''}
 
-
-                {/* TODO: HRPub view has to be rethaught #91 */}
-                {/* {hr_items.length !== 0 ? (
+                {item.attributes.pubsMentioned.data.length > 0 ? (
                     <section id="publics" className="detailSection">
                         <h4 className="sectionLabel">Publikationen</h4>
-                        <div>
-                        {
-                        
-                        hr_items.map((hr_item) => {
-                                return (
-                                    <Link href={'/hr/'+hr_item.hr_public.data.id} key={hr_item.hr_public.data.id}>
-                                        <div className={`${style.listItem} rounded-lg`}>
-                                            <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
-                                                <div className="w-5">
-                                                <FontAwesomeIcon icon={dynamicIconHandler(hr_item.hr_public.data.attributes.pub_icon)} />
-                                                </div>
-                                            </div>
-                                            <div className={`${style.listContent} flex-auto`}>
-                                                <p className={`${style.meta}`}>{germanDate(hr_item.hr_public.data.attributes.pub_date)}</p>
-                                                <p className={`${style.summary}`}>{hr_item.hr_public.data.attributes.pub_title}: {hr_item.hr_public.data.attributes.pub_summary}</p>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
-                        </div>
+                        <HRList content={item.attributes.pubsMentioned} />
                     </section>
                 ) : ''}
 
-                {item.attributes.personNetwork.length == 0 && hr_items.length == 0 ? (
-                    <Alert theme="info">
-                        Zu dieser Person gibt es keine weiteren Daten.
-                    </Alert>
-                ) : '' } */}
             </DetailPage>
         </Layout>
     )
@@ -109,7 +71,7 @@ export async function getServerSideProps({params}) {
     try{
         const contentResponse = await fetcher(
             `persons/${id}`,
-            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number'
+            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate=pubsMentioned'
         )
         return {
             props: {
