@@ -1,21 +1,24 @@
 .listItem, .networkItem
     @apply flex justify-between gap-x-6 bg-slate-50 shadow
-    height: 67px
+    
 
     .listIcon
         @apply bg-slate-100 p-5
+        @apply flex items-center
 
         .faIcon
             width: 1.3rem
             min-height: 1.73rem
-            align-items: center
-            display: flex
+            @apply flex items-center
 
     .listContent
-        @apply my-auto
+        @apply my-auto w-full py-2 mr-2
 
         .summary
             @apply font-semibold
+            @apply truncate
+            width: 85%
+
         .meta
             @apply text-sm font-light
     
