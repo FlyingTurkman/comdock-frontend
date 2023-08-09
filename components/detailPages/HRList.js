@@ -23,7 +23,7 @@ const HRList = ({content}) => {
                                 {item.attributes.company ? (
                                 <>
                                     <span> | über </span>
-                                    <Link href={'/companies/'+item.attributes.company.data.attributes.hr_number} className='font-semibold hover:underline'>{item.attributes.company.data.attributes.company_name}</Link>
+                                    <Link href={'/companies/'+item.attributes.company.data.attributes.hr_number} className='font-semibold'>{item.attributes.company.data.attributes.company_name}</Link>
                                 </>
                                 ) : ''}
                                 
