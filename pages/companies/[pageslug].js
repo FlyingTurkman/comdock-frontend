@@ -33,7 +33,8 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                     item.attributes.company_name + ', ' + item.attributes.main_branch.data.attributes.city :
                     item.attributes.company_name
                 }
-                contentType='company'>
+                contentType='company'
+                badge={item.attributes.status}>
                 <section id="company_name" className="detailSection">
                     <h4 className="sectionLabel">Firma</h4>
                     <p className="my-2">{item.attributes.company_name}</p>

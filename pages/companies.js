@@ -25,7 +25,7 @@ const Companies = ({companies}) => {
             <CompaniesList content={companies} />
             <Alert theme="info">
               <p>In dieser Ansicht werden nur aktive Firmen angezeigt.</p>
-              <p>Unter <Link href="/companies/removed" className=" text-info hover:text-sky-600">Entfernte Firmen</Link> finden Sie Firmen, 
+              <p>Unter <Link href="/companies/removed" className="font-medium text-info hover:text-sky-600">Entfernte Firmen</Link> finden Sie Firmen, 
                 die vormals mit einem Unternehmen des NCS Verbunds verbunden waren, 
                 sich in Liquidation befinden oder bereits gelöscht wurden.
               </p>
