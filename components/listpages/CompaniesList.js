@@ -17,8 +17,13 @@ const CompaniesList = ({content}) => {
                                 </div>
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
-                                <p className={`${style.summary}`}>{item.attributes.company_name} 
-                                {item.attributes.main_branch.data?.attributes?.city ? (', '+item.attributes.main_branch.data?.attributes?.city) : ''}</p>
+                                <p className={`${style.summary} flex items-center`}>
+                                    {item.attributes.company_name} 
+                                    {item.attributes.main_branch.data?.attributes?.city ? (', '+item.attributes.main_branch.data?.attributes?.city) : ''}
+                                    {item.attributes.status ? (
+                                        <span className={`badge ${style.StatusBadge}`}>{item.attributes.status}</span>
+                                    ) : ''}
+                                </p>
                                 <p className={`${style.meta}`}>{item.attributes.hr_court ? (item.attributes.hr_court+' | ') : ''}
                                 {item.attributes.hr_dept} {item.attributes.hr_number}</p>
                             </div>
