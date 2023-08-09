@@ -20,8 +20,13 @@ const HRList = ({content}) => {
                         <div className={`${style.listContent} flex-auto`}>
                             <p className={`${style.meta}`}>
                                 <span>{germanDate(item.attributes.pub_date)}</span>
-                                <span> | über </span>
-                                <Link href={'/company/'+item.attributes.company.data.attributes.hr_number} className='font-semibold hover:underline'>{item.attributes.company.data.attributes.company_name}</Link>
+                                {item.attributes.company ? (
+                                <>
+                                    <span> | über </span>
+                                    <Link href={'/companies/'+item.attributes.company.data.attributes.hr_number} className='font-semibold hover:underline'>{item.attributes.company.data.attributes.company_name}</Link>
+                                </>
+                                ) : ''}
+                                
                             </p>
                             <Link href={'/hr/'+item.id} key={item.id}>
                                 <p className={`${style.summary}`}>{item.attributes.pub_title}: {item.attributes.pub_summary}</p>
