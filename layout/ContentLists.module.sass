@@ -21,10 +21,10 @@
 
         .meta
             @apply text-sm font-light
-    
-    .hrLink
-        @apply my-auto mx-5
-        @apply text-zinc-300
+        
+        .StatusBadge
+            @apply bg-primary-50 text-primary
+            @apply mx-4 mb-1
 
 
 .listItem
@@ -39,11 +39,10 @@
 
         .listIcon, .listContent .summary
             @apply text-zinc-100
-        
-        .hrLink
-            @apply text-primary-400
-            &:hover
-                @apply text-cyan-600
+
+        .listContent .summary .StatusBadge
+            @apply bg-primary-700 text-zinc-100
+
 
 .networkItem
     @apply text-cyan-600
@@ -56,11 +55,6 @@
         .listIcon, .listContent .summary
             @apply text-zinc-100
 
-        .hrLink
-            @apply text-cyan-700
-        
-            &:hover
-                @apply text-cyan-800
 
     &.headItem
         @apply bg-cyan-600 text-zinc-100
@@ -82,18 +76,7 @@
             .listIcon, .listContent .summary
                 @apply text-gray-700
 
-            .hrLink
-                @apply text-slate-400
 
-                &:hover
-                    @apply text-slate-500
-
-
-
-
-.networkTitle
-    @apply text-center p-2
-    @apply bg-cyan-600 text-zinc-100
 
 .LenghtToggleButton.network
     @apply bg-slate-50 w-full p-2 text-cyan-600 shadow-sm text-xs
