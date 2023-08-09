@@ -46,9 +46,11 @@ export default function DetailPage({title, children, contentType, badge}) {
                     </div>
                     )}
                     <span>{title}</span>
-                    <span className={` ${style.TitleBadge}`}>
-                        {badge !== 'aktiv' ? (badge) : ''}
-                    </span>
+                    {badge && badge !== 'aktiv' ? (
+                        <span className={` ${style.TitleBadge}`}>
+                            {badge}
+                        </span>
+                    ) : ''}
                 </div>
             </PageHeader>
             <div className="w-full relative">
