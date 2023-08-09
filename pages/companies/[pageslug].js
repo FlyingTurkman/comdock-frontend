@@ -23,9 +23,7 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
     }
 
     const allPubs = item.attributes.hr_pubs.data.concat(relationalInfo.attributes.pubsMentioned.data).sort((newest, oldest) => oldest.attributes.pub_date.localeCompare(newest.attributes.pub_date))
-    console.log(allPubs)
-
-
+   
     return(
         <Layout siteTitle={item.attributes.company_name}>
             <DetailPage 
