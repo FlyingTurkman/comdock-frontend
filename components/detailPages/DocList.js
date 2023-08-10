@@ -25,7 +25,7 @@ export default function DocList({content}) {
                                         <p className={`${style.summary}`}>{item.attributes.type}</p>
                                         <p className={`${style.meta}`}>{germanDate(item.attributes.createdAt)}</p>
                                     </div>
-                                    <div className={`${style.hrLink} flex-none`}>
+                                    <div className="flex-none my-auto mx-5 text-zinc-300/75">
                                         <div className={`${open ? 'rotate-180 transform' : ''} w-5`}>
                                             <FontAwesomeIcon icon={faCircleChevronDown} />
                                         </div>
