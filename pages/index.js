@@ -60,11 +60,11 @@ export async function getServerSideProps() {
   try {
     const companyResponse = await fetcher(
       'companies', 
-      'fields[0]=company_name&fields[1]=hr_court&fields[2]=hr_dept&fields[3]=hr_number&populate=main_branch&pagination[pageSize]=5'
+      'fields[0]=company_name&fields[1]=hr_court&fields[2]=hr_dept&fields[3]=hr_number&populate=main_branch&filters[status][$eq]=aktiv&sort[0]=company_name&pagination[pageSize]=5'
     )
     const personResponse = await fetcher(
       `persons`,
-      'fields[0]=first_name&fields[1]=sir_name&fields[2]=city&pagination[pageSize]=5'
+      'fields[0]=first_name&fields[1]=sir_name&fields[2]=city&sort[0]=sir_name&sort[1]=first_name&pagination[pageSize]=5'
     )
 
     const contentResponse = await fetcher('indexcontent')

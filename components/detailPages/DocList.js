@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function DocList({content}) {
     return (
         <div>
-            {content && content.data.map((item) => {
+            {content && content.map((item) => {
                 return(
                     <Disclosure key={item.id}>
                         {({ open }) => (
@@ -25,7 +25,7 @@ export default function DocList({content}) {
                                         <p className={`${style.summary}`}>{item.attributes.type}</p>
                                         <p className={`${style.meta}`}>{germanDate(item.attributes.createdAt)}</p>
                                     </div>
-                                    <div className={`${style.hrLink} flex-none`}>
+                                    <div className="flex-none my-auto mx-5 text-zinc-300/75">
                                         <div className={`${open ? 'rotate-180 transform' : ''} w-5`}>
                                             <FontAwesomeIcon icon={faCircleChevronDown} />
                                         </div>

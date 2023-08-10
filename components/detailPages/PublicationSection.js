@@ -30,7 +30,7 @@ export default function PablicationSection({hr, pubsMentioned, docs}) {
             )}
           </Tab>
         ) : ''}
-        {docs.data.length > 0 ? (
+        {docs.length > 0 ? (
         <Tab as={Fragment}>
           {({ selected }) => (
             <button className={`${style.tabNavItem} ${selected ? style.tabNavItemActive : ''}`}>
@@ -48,7 +48,7 @@ export default function PablicationSection({hr, pubsMentioned, docs}) {
             <HRList content={hr} />
         </Tab.Panel>
         ) : ''}
-        {docs.data.length > 0 ? (
+        {docs.length > 0 ? (
         <Tab.Panel id="company_docs" className="p-3">
             <DocList content={docs} />
         </Tab.Panel>

@@ -21,6 +21,8 @@ const PersonDetail = ({item}) => {
     if (!item) {
         return(<ConnectionFailFullSite />)
     }
+
+    const hr = item.attributes.pubsMentioned.data.sort((newest, oldest) => oldest.attributes.pub_date.localeCompare(newest.attributes.pub_date))
         
     return (
         <Layout siteTitle={item.attributes.first_name+' '+item.attributes.sir_name+', '+item.attributes.city}>
@@ -40,7 +42,7 @@ const PersonDetail = ({item}) => {
                                             </div>
                                         </div>
                                         <div className={`${style.listContent} flex-auto`}>
-                                            <Link href={'/company/'+person.attributes.childCompany.data.attributes.hr_number} key={person.id}>
+                                            <Link href={'/companies/'+person.attributes.childCompany.data.attributes.hr_number} key={person.id}>
                                                 <p className={`${style.summary}`}>{person.attributes.childCompany.data.attributes.company_name}</p>
                                                 <p className={`${style.meta}`}>
                                                     {person.attributes.type} {person.attributes.upto ? ('(bis '+germanDate(person.attributes.upto)+')') : ''}
@@ -57,7 +59,7 @@ const PersonDetail = ({item}) => {
                 {item.attributes.pubsMentioned.data.length > 0 ? (
                     <section id="publics" className="detailSection">
                         <h4 className="sectionLabel">Veröffentlichungen</h4>
-                        <HRList content={item.attributes.pubsMentioned.data} />
+                        <HRList content={hr} />
                     </section>
                 ) : ''}
 

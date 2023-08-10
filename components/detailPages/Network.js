@@ -40,7 +40,7 @@ export default function Network({networkInfo}) {
                 {activeParents.slice(0, numToShow).map((parent) => {
                     if (parent.attributes.parentCompany.data !== null) {
                         return (
-                            <div className={`${style.networkItem} rounded-lg`}>
+                            <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
                                         <FontAwesomeIcon icon={faBuilding} />
@@ -57,7 +57,7 @@ export default function Network({networkInfo}) {
 
                     } else if (parent.attributes.parentExternal.data !== null) {
                         return (
-                            <div className={`${style.networkItem} rounded-lg`}>
+                            <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
                                         {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
@@ -78,7 +78,7 @@ export default function Network({networkInfo}) {
 
                     } else if (parent.attributes.parentPerson.data !== null) {
                         return (
-                            <div className={`${style.networkItem} rounded-lg`}>
+                            <div className={`${style.networkItem} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
                                         <FontAwesomeIcon icon={faUser} />
@@ -97,7 +97,7 @@ export default function Network({networkInfo}) {
 
                 {ShowFullNetwork && activeChildren.map((child) => {
                     return (
-                        <div className={`${style.networkItem} rounded-lg`}>
+                        <div className={`${style.networkItem} rounded-lg`} key={child.id}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                 <div className={style.faIcon}>
                                     <FontAwesomeIcon icon={faBuildingCircleArrowRight} />
@@ -117,7 +117,7 @@ export default function Network({networkInfo}) {
                 {ShowFullNetwork && deletedParents.map((parent) => {
                     if (parent.attributes.parentCompany.data !== null) {
                         return (
-                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
+                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
                                         <FontAwesomeIcon icon={faBuilding} />
@@ -136,7 +136,7 @@ export default function Network({networkInfo}) {
 
                     } else if (parent.attributes.parentExternal.data !== null) {
                         return (
-                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
+                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
                                         {parent.attributes.parentExternal.data.attributes.reg_dept == 'Behörde' ? (
@@ -159,7 +159,7 @@ export default function Network({networkInfo}) {
 
                     } else if (parent.attributes.parentPerson.data !== null) {
                         return (
-                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
+                            <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={parent.id}>
                                 <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                     <div className={style.faIcon}>
                                         <FontAwesomeIcon icon={faUser} />
@@ -180,7 +180,7 @@ export default function Network({networkInfo}) {
 
                 {ShowFullNetwork && deletedChildren.map((child) => {
                     return (
-                        <div className={`${style.networkItem} ${style.deleted} rounded-lg`}>
+                        <div className={`${style.networkItem} ${style.deleted} rounded-lg`} key={child.id}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                 <div className={style.faIcon}>
                                     <FontAwesomeIcon icon={faBuildingCircleArrowRight} />

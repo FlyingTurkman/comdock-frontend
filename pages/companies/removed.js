@@ -28,7 +28,7 @@ const RemovedCompanies = ({companies}) => {
                         sich in Liquidation befinden oder bereits gelöscht wurden.
                     </p>
                     <p>
-                        Unter <Link href="/companies" className=" text-info hover:text-sky-600">Firmen</Link> finden Sie die aktuell aktiven Firmen.
+                        Unter <Link href="/companies" className="font-medium text-info hover:text-sky-600">Firmen</Link> finden Sie die aktuell aktiven Firmen.
                     </p>
                 </Alert>
                 <CompaniesList content={companies} />

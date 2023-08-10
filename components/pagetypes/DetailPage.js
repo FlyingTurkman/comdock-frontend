@@ -7,7 +7,7 @@ import { Now } from "@/helpers/helpScripts"
 import style from '@/layout/DetailPage.module.sass'
 
 
-export default function DetailPage({title, children, contentType}) {
+export default function DetailPage({title, children, contentType, badge}) {
 
     const [activeLink, setActiveLink] = useState();
     
@@ -38,7 +38,7 @@ export default function DetailPage({title, children, contentType}) {
     return (
         <>
             <PageHeader title={title}>
-                <div className="h1 flex">
+                <div className="h1 flex items-center">
                     { contentType && (
                     <div className="flex-none w-8 mr-6">
                         {contentType == 'company' ? (<FontAwesomeIcon icon={faBuilding} />) : ''}
@@ -46,6 +46,11 @@ export default function DetailPage({title, children, contentType}) {
                     </div>
                     )}
                     <span>{title}</span>
+                    {badge && badge !== 'aktiv' ? (
+                        <span className={` ${style.TitleBadge}`}>
+                            {badge}
+                        </span>
+                    ) : ''}
                 </div>
             </PageHeader>
             <div className="w-full relative">

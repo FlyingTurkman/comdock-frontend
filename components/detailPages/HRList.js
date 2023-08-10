@@ -9,8 +9,8 @@ const HRList = ({content}) => {
             { content && content.map((item) => {
                 
                 return (
-                    <div className={`${style.listItem} rounded-lg`} id={`hr${item.id}`}>
-                        <Link href={'/hr/'+item.id} key={item.id}>
+                    <div className={`${style.listItem} rounded-lg`} id={`hr${item.id}`} key={item.id}>
+                        <Link href={'/hr/'+item.id}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                 <div className={style.faIcon}>
                                 <FontAwesomeIcon icon={dynamicIconHandler(item.attributes.pub_icon)} />
@@ -29,7 +29,12 @@ const HRList = ({content}) => {
                                 
                             </p>
                             <Link href={'/hr/'+item.id} key={item.id}>
-                                <p className={`${style.summary}`}>{item.attributes.pub_title}: {item.attributes.pub_summary}</p>
+                                <p className={`${style.summary}`}>
+                                    {item.attributes.pub_summary != null ? 
+                                        (item.attributes.pub_title+': '+item.attributes.pub_summary) :
+                                        (item.attributes.pub_title)
+                                    }    
+                                </p>
                             </Link>
                         </div>
                     </div>
