@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function DocList({content}) {
     return (
         <div>
-            {content && content.data.map((item) => {
+            {content && content.map((item) => {
                 return(
                     <Disclosure key={item.id}>
                         {({ open }) => (

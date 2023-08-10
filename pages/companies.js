@@ -45,7 +45,7 @@ export async function getServerSideProps() {
   try {
     const contentResponse = await fetcher(
       'companies', 
-      'fields[0]=company_name&fields[1]=hr_court&fields[2]=hr_dept&fields[3]=hr_number&populate=main_branch&filters[status][$eq]=aktiv')
+      'fields[0]=company_name&fields[1]=hr_court&fields[2]=hr_dept&fields[3]=hr_number&populate=main_branch&filters[status][$eq]=aktiv&sort[0]=company_name')
     return {
       props: {
         companies: contentResponse,

@@ -20,6 +20,8 @@ const HRDetail = ({item, pub_text}) => {
         return(<ConnectionFailFullSite />)
     }
 
+    const docs = item.attributes.docs.data.sort((newest, oldest) => oldest.attributes.createdAt.localeCompare(newest.attributes.createdAt))
+
     return (
         <Layout siteTitle={item.attributes.pub_title+' - '+item.attributes.company.data.attributes.company_name}>
             <PageHeader noBreadcrumb>
@@ -46,7 +48,7 @@ const HRDetail = ({item, pub_text}) => {
                 <section id="publications" className="wrapper">
                     <h4 className="sectionLabel">Dokumente zu dieser Eintragung</h4>
                     <div className="my-2">
-                        <DocList content={item.attributes.docs} />
+                        <DocList content={docs} />
                     </div>
                 </section>
             ) : ''}

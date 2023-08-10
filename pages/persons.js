@@ -33,7 +33,7 @@ export async function getServerSideProps() {
   try {
     const contentResponse = await fetcher(
       `persons`,
-      'fields[0]=first_name&fields[1]=sir_name&fields[2]=city'
+      'fields[0]=first_name&fields[1]=sir_name&fields[2]=city&sort[0]=sir_name&sort[1]=first_name'
     )
     return {
       props: {

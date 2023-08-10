@@ -23,6 +23,7 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
     }
 
     const allPubs = item.attributes.hr_pubs.data.concat(relationalInfo.attributes.pubsMentioned.data).sort((newest, oldest) => oldest.attributes.pub_date.localeCompare(newest.attributes.pub_date))
+    const docs = relationalInfo.attributes.docs.data.sort((newest, oldest) => oldest.attributes.createdAt.localeCompare(newest.attributes.createdAt))
    
     return(
         <Layout siteTitle={item.attributes.company_name}>
@@ -104,7 +105,7 @@ const CompanyDetail = ({item, relationalInfo, corp_object}) => {
                 <section id="publications" className="detailSection">
                     <h4 className="sectionLabel">Veröffentlichungen</h4>
                     <div className="my-2">
-                        <PablicationSection hr={allPubs} docs={relationalInfo.attributes.docs} />
+                        <PablicationSection hr={allPubs} docs={docs} />
                     </div>
                 </section>
                 ) : ''}
