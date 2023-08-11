@@ -126,7 +126,7 @@ export async function getServerSideProps({params}) {
 
         const relationalResponse = await fetcher(
             `slugify/slugs/company/${pageslug}`,
-            `fields[0]=company_name&populate[networkParents][populate][parentCompany][fields][0]=company_name,hr_number&populate[networkParents][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[networkParents][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url&populate[pubsMentioned][populate][company][fields][0]=hr_number,company_name`
+            `fields[0]=company_name&populate[networkParents][populate][parentCompany][fields][0]=company_name,hr_number,pageslug&populate[networkParents][populate][parentExternal][fields][0]=company_name,url,reg_number,reg_dept&populate[networkParents][populate][parentPerson][fields][0]=first_name,sir_name,id&populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number,pageslug&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url&populate[pubsMentioned][populate][company][fields][0]=hr_number,company_name,pageslug`
         )
 
         return{

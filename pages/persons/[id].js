@@ -42,7 +42,7 @@ const PersonDetail = ({item}) => {
                                             </div>
                                         </div>
                                         <div className={`${style.listContent} flex-auto`}>
-                                            <Link href={'/companies/'+person.attributes.childCompany.data.attributes.hr_number} key={person.id}>
+                                            <Link href={'/companies/'+person.attributes.childCompany.data.attributes.pageslug} key={person.id}>
                                                 <p className={`${style.summary}`}>{person.attributes.childCompany.data.attributes.company_name}</p>
                                                 <p className={`${style.meta}`}>
                                                     {person.attributes.type} {person.attributes.upto ? ('(bis '+germanDate(person.attributes.upto)+')') : ''}
@@ -73,7 +73,7 @@ export async function getServerSideProps({params}) {
     try{
         const contentResponse = await fetcher(
             `persons/${id}`,
-            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number&populate[pubsMentioned][populate][company][fields][0]=company_name,hr_number'
+            'populate[networkChildren][populate][childCompany][fields][0]=company_name,hr_number,pageslug&populate[pubsMentioned][populate][company][fields][0]=company_name,pageslug'
         )
         return {
             props: {

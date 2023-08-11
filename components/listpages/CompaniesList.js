@@ -9,7 +9,7 @@ const CompaniesList = ({content}) => {
         <div>
             { content.data.length > 0 && content.data.map((item) => {
                 return (
-                    <Link href={'/companies/'+item.attributes.hr_number} key={item.attributes.hr_number}>
+                    <Link href={'/companies/'+item.attributes.pageslug} key={item.attributes.pageslug}>
                         <div className={`${style.listItem} rounded-lg`}>
                             <div className={` ${style.listIcon} flex-none rounded-l-lg`}>
                                 <div className='w-5'>
