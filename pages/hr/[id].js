@@ -39,7 +39,7 @@ const HRDetail = ({item, pub_text}) => {
             </PageHeader>
             <article className="wrapper text-mono">
                 <div className="flex">
-                    <Link href={`/companies/${item.attributes.company.data.attributes.hr_number}`} className="flex-auto font-semibold text-primary hover:underline hover:underline-offset-4">{item.attributes.company.data.attributes.hr_dept+' '+item.attributes.company.data.attributes.hr_number+' / '+item.attributes.company.data.attributes.company_name}</Link>
+                    <Link href={`/companies/${item.attributes.company.data.attributes.pageslug}`} className="flex-auto font-semibold text-primary hover:underline hover:underline-offset-4">{item.attributes.company.data.attributes.hr_dept+' '+item.attributes.company.data.attributes.hr_number+' / '+item.attributes.company.data.attributes.company_name}</Link>
                     <span className="text-right font-semibold text-primary">{germanDate(item.attributes.pub_date)}</span>
                 </div>
                 <div className={`my-2 markdownBox text-mono`} dangerouslySetInnerHTML={{ __html: pub_text }}></div>
@@ -61,7 +61,7 @@ export async function getServerSideProps({params}) {
     try {
         const contentResponse = await fetcher(
             `hr-publics/${id}`,
-            `populate[company][fields][0]=company_name,hr_dept,hr_number&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`
+            `populate[company][fields][0]=company_name,hr_dept,hr_number,pageslug&populate[docs][populate][mainDoc][fields][0]=url&populate[docs][populate][relatedDocs][populate][document][fields][0]=url`
         )
 
         const pub_text = await markdownToHtml(contentResponse.data.attributes.pub_text);

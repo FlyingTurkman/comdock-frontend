@@ -47,7 +47,7 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.hr_number} >
+                                    <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.pageslug} >
                                         <p className={`${style.summary}`}>{parent.attributes.parentCompany.data.attributes.company_name}</p>
                                         <p className={`${style.meta}`}>{parent.attributes.type}</p>
                                     </Link>
@@ -104,7 +104,7 @@ export default function Network({networkInfo}) {
                                 </div>
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
-                                <Link href={'/companies/'+child.attributes.childCompany.data.attributes.hr_number} >
+                                <Link href={'/companies/'+child.attributes.childCompany.data.attributes.pageslug} >
                                     <p className={`${style.summary}`}>{child.attributes.childCompany.data.attributes.company_name}</p>
                                     <p className={`${style.meta}`}>{child.attributes.type}</p>
                                 </Link>
@@ -124,7 +124,7 @@ export default function Network({networkInfo}) {
                                     </div>
                                 </div>
                                 <div className={`${style.listContent} flex-auto`}>
-                                    <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.hr_number} >
+                                    <Link href={'/companies/'+parent.attributes.parentCompany.data.attributes.pageslug} >
                                         <p className={`${style.summary}`}>{parent.attributes.parentCompany.data.attributes.company_name}</p>
                                         <p className={`${style.meta}`}>
                                             {parent.attributes.type} ({germanDate(parent.attributes.since)} bis {germanDate(parent.attributes.upto)})
@@ -187,7 +187,7 @@ export default function Network({networkInfo}) {
                                 </div>
                             </div>
                             <div className={`${style.listContent} flex-auto`}>
-                                <Link href={'/companies/'+child.attributes.childCompany.data.attributes.hr_number} >
+                                <Link href={'/companies/'+child.attributes.childCompany.data.attributes.pageslug} >
                                     <p className={`${style.summary}`}>{child.attributes.childCompany.data.attributes.company_name}</p>
                                     <p className={`${style.meta}`}>
                                         {child.attributes.type} ({germanDate(child.attributes.since)+' bis '+germanDate(child.attributes.upto)})
