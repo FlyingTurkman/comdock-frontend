@@ -18,9 +18,9 @@ const Index = ({companies, persons, texts, jumbotron}) => {
     }
   }, [companies]);
 
-  if (!companies || !persons || !texts) {
-    return(<ConnectionFailFullSite />)
-  }
+  // if (!companies || !persons || !texts) {
+  //   return(<ConnectionFailFullSite />)
+  // }
 
   return(
     <Layout nopageHeader>
